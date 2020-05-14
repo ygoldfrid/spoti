@@ -31,7 +31,7 @@ function LoginPage() {
         <p>
           Check the source code{" "}
           <a
-            href="https://github.com/ygoldfrid"
+            href="https://github.com/ygoldfrid/spoti"
             target="_blank"
             rel="noopener noreferrer"
           >
