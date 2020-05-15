@@ -7,13 +7,14 @@ import { BrowserRouter } from "react-router-dom";
 import "font-awesome/css/font-awesome.css";
 import "bootstrap/dist/css/bootstrap.css";
 
+document.title = process.env.REACT_APP_NAME;
+
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
       <App />
     </React.StrictMode>
   </BrowserRouter>,
-
   document.getElementById("root")
 );
 

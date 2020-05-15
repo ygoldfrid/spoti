@@ -39,6 +39,9 @@ function LoginPage() {
           </a>
         </p>
       </div>
+      <div className="row justify-content-center">
+        <p>by Yaniv Goldfrid</p>
+      </div>
     </Fragment>
   );
 }

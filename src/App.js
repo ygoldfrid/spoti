@@ -26,7 +26,6 @@ function App() {
         setUser(user);
       }
     }
-    document.title = process.env.REACT_APP_NAME;
     getUser();
   }, []);
 
