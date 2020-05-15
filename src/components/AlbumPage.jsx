@@ -3,7 +3,7 @@ import spoti from "../services/spotiService";
 import Tracks from "./Tracks";
 import { Link } from "react-router-dom";
 
-function AlbumPage({ match, history }) {
+function AlbumPage({ match, history, location }) {
   const [album, setAlbum] = useState(null);
   const [tracks, setTracks] = useState([]);
 
@@ -49,7 +49,7 @@ function AlbumPage({ match, history }) {
           <div className="row">
             <h3>Tracks</h3>
           </div>
-          <Tracks tracks={tracks} />
+          <Tracks tracks={tracks} location={location} />
         </Fragment>
       )}
     </Fragment>

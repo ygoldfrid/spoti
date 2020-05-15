@@ -46,8 +46,17 @@ p {
 :root {
   --main-green: rgb(29, 185, 84);
   --main-green-hover: rgb(30, 215, 96);
+  --background: rgb(18, 18, 18);
+  --navbar: rgb(4, 4, 4);
+  --selected: rgb(42, 42, 42);
 }
 
+/* BACKGROUND */
+.navbar-custom {
+  background-color: var(--navbar);
+}
+
+/* BUTTONS */
 button.btn-spoti,
 a.btn-spoti {
   font-family: lineto-circular-pro-bold;
@@ -95,7 +104,7 @@ div.result-info > p {
 div.result:hover,
 div.track:hover {
   cursor: pointer;
-  background-color: black;
+  background-color: var(--selected);
 }
 
 div.results {
@@ -112,7 +121,10 @@ div.track,
 div.result {
   border-top: solid 1px white;
   align-items: center;
-  /* align-content: center; */
+}
+
+.is-playing {
+  color: var(--main-green);
 }
 
 /* button.more {

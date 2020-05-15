@@ -1,10 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import spoti from "../services/spotiService";
+import queryString from "query-string";
 
-function Tracks({ tracks, isArtist = false }) {
+function Tracks({ location, tracks, isArtist = false }) {
   const [currentlyPlaying, setCurrentlyPlaying] = useState("");
 
   if (isArtist) tracks = tracks.slice(0, 5);
+
+  useEffect(() => {
+    async function playQuery() {
+      try {
+        if (location.search) {
+          const queryObject = queryString.parse(location.search);
+          const queryTrack = queryObject.track;
+          if (queryTrack) {
+            await spoti.playTrack(queryTrack);
+            setCurrentlyPlaying(queryTrack);
+          }
+        }
+      } catch (ex) {
+        if (ex.response && ex.response.status === 400) {
+          console.log("Track does not exist");
+        }
+      }
+    }
+    playQuery();
+  }, [location]);
 
   const msToDuration = (ms) => {
     var minutes = Math.floor(ms / 60000);
@@ -28,14 +49,18 @@ function Tracks({ tracks, isArtist = false }) {
       await spoti.playTrack(targetId);
       setCurrentlyPlaying(targetId);
     } catch (ex) {
-      console.log("Error Message", ex);
+      console.log(ex);
     }
   };
 
-  const getPlayClasses = (trackId) => {
+  const getIconClasses = (trackId) => {
     return trackId === currentlyPlaying
-      ? "fa fa-pause-circle fa-2x m-2"
-      : "fa fa-play-circle fa-2x m-2";
+      ? "fa fa-pause fa-1x m-2 is-playing"
+      : "fa fa-play fa-1x m-2";
+  };
+
+  const getCurrentlyPlayingClasses = (trackId) => {
+    return trackId === currentlyPlaying ? "is-playing" : "";
   };
 
   return (
@@ -45,7 +70,7 @@ function Tracks({ tracks, isArtist = false }) {
           key={track.id}
           id={track.id}
           onClick={handleClick}
-          className="row track"
+          className="row track p-2"
         >
           {isArtist && (
             <img
@@ -54,8 +79,8 @@ function Tracks({ tracks, isArtist = false }) {
               alt={track.name}
             />
           )}
-          <i className={getPlayClasses(track.id)} aria-hidden="true"></i>
-          <p>
+          <i className={getIconClasses(track.id)} aria-hidden="true"></i>
+          <p className={getCurrentlyPlayingClasses(track.id)}>
             {track.name} ({msToDuration(track.duration_ms)})
           </p>
         </div>

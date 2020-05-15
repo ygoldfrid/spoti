@@ -36,7 +36,7 @@ function getAlbumById(albumId) {
 }
 
 function getAlbumTracks(albumId) {
-  return http.get(`${albumsEndpoint}${albumId}/tracks`);
+  return http.get(`${albumsEndpoint}${albumId}/tracks?limit=50`);
 }
 
 function getUserFollowsArtist(artistId) {
