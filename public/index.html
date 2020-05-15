@@ -4,11 +4,7 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="Spoti App" content="Web client powered by the Spotify API" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -29,71 +25,7 @@
   <body style="background-color: #505050;">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script
-      src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-      crossorigin="anonymous"
-    ></script>
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
-    <script>
-      window.onSpotifyWebPlaybackSDKReady = () => {
-        const token =
-          "BQDHyBxkk4-Kf9Qy_1l2yF0BhLEIfhMR_76eqXFkGE0yT7ozlUJ21QoOVsbDsclWRWYXJS24sLF38woFM2spj-EkNKrNHah9RuJTdA5I4bfQSSwh-B4SvH4uXCsP_D8aLxJiS-s2lMhqjQQ7dAwYPjHq_XmEMiE8VN3c";
-        const player = new Spotify.Player({
-          name: "Spoti App Player",
-          getOAuthToken: (cb) => {
-            cb(token);
-          },
-        });
-
-        // Error handling
-        player.addListener("initialization_error", ({ message }) => {
-          console.error(message);
-        });
-        player.addListener("authentication_error", ({ message }) => {
-          console.error(message);
-        });
-        player.addListener("account_error", ({ message }) => {
-          console.error(message);
-        });
-        player.addListener("playback_error", ({ message }) => {
-          console.error(message);
-        });
-
-        // Playback status updates
-        player.addListener("player_state_changed", (state) => {
-          // console.log("state", state);
-        });
-
-        // Ready
-        player.addListener("ready", ({ device_id }) => {
-          // console.log("Ready with Device ID", device_id);
-        });
-
-        // Not Ready
-        player.addListener("not_ready", ({ device_id }) => {
-          console.log("Device ID has gone offline", device_id);
-        });
-
-        // Connect to the player!
-        player.connect().then((success) => {
-          if (success) {
-            // console.log(
-            //   "The Web Playback SDK successfully connected to Spotify!"
-            // );
-          }
-        });
-      };
-    </script>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <script src="/spotiPlayer.js"></script>
   </body>
 </html>

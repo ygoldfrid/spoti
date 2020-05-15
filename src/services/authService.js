@@ -2,6 +2,7 @@ import http from "./httpService";
 import queryString from "query-string";
 
 const auth_url = "https://accounts.spotify.com/authorize";
+const tokenKey = "access_token";
 
 const params = {
   client_id: "14c498f4bd4b4b2d8d7f7d13b67efae8",
@@ -26,17 +27,17 @@ function login() {
 }
 
 function logout() {
-  localStorage.removeItem("access_token");
+  localStorage.removeItem(tokenKey);
 }
 
 function isAuthenticated() {
-  return localStorage.getItem("access_token");
+  return localStorage.getItem(tokenKey);
 }
 
 http.setAccessToken(isAuthenticated());
 
 function saveAccessToken(accessToken) {
-  localStorage.setItem("access_token", accessToken);
+  localStorage.setItem(tokenKey, accessToken);
 }
 
 export default {

@@ -9,6 +9,8 @@ const userEndpoint = apiEndpoint + "me/";
 const followEndpoint = userEndpoint + "following";
 const playerEndpoint = userEndpoint + "player";
 
+const deviceKey = "_spharmony_device_id";
+
 function getCurrentUser() {
   return http.get(userEndpoint);
 }
@@ -49,12 +51,12 @@ function unfollowArtist(artistId) {
   return http.delete(`${followEndpoint}?type=artist&ids=${artistId}`);
 }
 
-function getDevices() {
-  return http.get(`${playerEndpoint}/devices`);
-}
-
 function getTrackById(trackId) {
   return http.get(`${tracksEndpoint}${trackId}`);
+}
+
+function getDeviceId() {
+  return localStorage.getItem(deviceKey);
 }
 
 async function playTrack(trackId) {
@@ -63,12 +65,8 @@ async function playTrack(trackId) {
   const albumId = track.album.id;
   const trackPosition = track.track_number - 1;
 
-  //Device data
-  const { data } = await getDevices();
-  const deviceId = data.devices[0].id;
-
   //Play
-  const url = `${playerEndpoint}/play?device_id=${deviceId}`;
+  const url = `${playerEndpoint}/play?device_id=${getDeviceId()}`;
   const body = {
     context_uri: `spotify:album:${albumId}`,
     offset: {
@@ -83,13 +81,8 @@ function getCurrentlyPlaying() {
   return http.get(`${playerEndpoint}/currently-playing`);
 }
 
-async function pauseTrack() {
-  //Device data
-  const { data } = await getDevices();
-  const deviceId = data.devices[0].id;
-
-  //Pause
-  return http.put(`${playerEndpoint}/pause?device_id=${deviceId}`);
+function pauseTrack() {
+  return http.put(`${playerEndpoint}/pause?device_id=${getDeviceId()}`);
 }
 
 function getPlayer() {

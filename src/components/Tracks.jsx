@@ -28,7 +28,7 @@ function Tracks({ tracks, isArtist = false }) {
       await spoti.playTrack(targetId);
       setCurrentlyPlaying(targetId);
     } catch (ex) {
-      console.log(ex.message);
+      console.log("Error Message", ex);
     }
   };
 
