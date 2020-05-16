@@ -7,7 +7,7 @@ function LoginPage() {
   return (
     <Fragment>
       <div className="row justify-content-center">
-        <h3>
+        <h3 className="text-center">
           Welcome to Spoti App, a Web Client powered by the{" "}
           <a
             href="https://developer.spotify.com/documentation/web-api/"
