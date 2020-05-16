@@ -26,15 +26,15 @@ function AlbumPage({ match, history, location }) {
     <Fragment>
       {album && (
         <Fragment>
-          <div className="row justify-content-center album p-2 mb-4">
+          <div className="row album p-2 mb-4">
             <img
-              className="mx-4"
+              className="m-3"
               height="250"
               width="250"
               alt={album.name}
               src={album.images[0] ? album.images[0].url : ""}
             />
-            <div className="album-info">
+            <div className="album-info mt-3">
               <h1 className="text-center mb-1">{album.name}</h1>
               <p className="text-center">
                 Album by{" "}

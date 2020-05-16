@@ -44,16 +44,16 @@ p {
 
 /* BUTTONS */
 :root {
-  --main-green: rgb(29, 185, 84);
-  --main-green-hover: rgb(30, 215, 96);
+  --green: rgb(29, 185, 84);
+  --green-hover: rgb(30, 215, 96);
   --background: rgb(18, 18, 18);
-  --navbar: rgb(4, 4, 4);
+  --navbar-black: rgb(4, 4, 4);
   --selected: rgb(42, 42, 42);
 }
 
 /* BACKGROUND */
-.navbar-custom {
-  background-color: var(--navbar);
+.navbar-spoti {
+  background-color: var(--navbar-black);
 }
 
 /* BUTTONS */
@@ -63,14 +63,14 @@ a.btn-spoti {
   font-size: 20px;
   width: 250px;
   color: white;
-  background-color: var(--main-green);
+  background-color: var(--green);
   border-radius: 30px;
 }
 
 button.btn-spoti:hover,
 a.btn-spoti:hover {
   color: white;
-  background-color: var(--main-green-hover);
+  background-color: var(--green-hover);
 }
 
 button.btn-spoti-clear {
@@ -85,14 +85,15 @@ button.btn-spoti-clear:hover {
 
 h3 > a,
 p > a {
-  color: var(--main-green);
+  color: var(--green);
 }
 
 h3 > a:hover,
 p > a:hover {
-  color: var(--main-green-hover);
+  color: var(--green-hover);
 }
 
+/* TEXT */
 div > p {
   margin: 0px;
 }
@@ -101,6 +102,7 @@ div.result-info > p {
   font-size: small;
 }
 
+/* RESULTS */
 div.result:hover,
 div.track:hover {
   cursor: pointer;
@@ -113,20 +115,26 @@ div.results {
   margin-bottom: 10px;
 }
 
-div.artist-info > h1 {
-  margin-bottom: 20px;
-}
-
 div.track,
 div.result {
   border-top: solid 1px white;
   align-items: center;
 }
 
-.is-playing {
-  color: var(--main-green);
+div.artist-info > h1 {
+  margin-bottom: 20px;
 }
 
+.is-playing {
+  color: var(--green);
+}
+
+@media screen and (max-width: 500px) {
+  .artist,
+  .album {
+    justify-content: center;
+  }
+}
 /* button.more {
   background: none !important;
   border: none;

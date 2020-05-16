@@ -4,7 +4,7 @@ import { Navbar, Nav } from "react-bootstrap";
 
 function NavBar({ user }) {
   return (
-    <Navbar variant="dark" expand="lg" className="navbar-custom mb-3">
+    <Navbar variant="dark" expand="lg" className="navbar-spoti mb-3">
       <Navbar.Brand href="/">
         <i className="fa fa-spotify fa-1x mr-2" aria-hidden="true"></i>Spoti App
       </Navbar.Brand>

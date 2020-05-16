@@ -59,15 +59,15 @@ function ArtistPage({ match, history, user }) {
     <Fragment>
       {artist && (
         <Fragment>
-          <div className="row justify-content-center artist p-2 mb-4">
+          <div className="row artist p-2 mb-4">
             <img
-              className="mr-4"
+              className="m-3"
               height="250"
               width="250"
               alt={artist.name}
               src={artist.images[0] ? artist.images[0].url : ""}
             />
-            <div className="artist-info">
+            <div className="artist-info mt-3">
               <h1 className="text-center mb-1">{artist.name}</h1>
               <p className="text-center">
                 {new Intl.NumberFormat().format(artist.followers.total)}{" "}
