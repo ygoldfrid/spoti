@@ -55,12 +55,28 @@ function Tracks({ location, tracks, isArtist = false }) {
 
   const getIconClasses = (trackId) => {
     return trackId === currentlyPlaying
-      ? "fa fa-pause fa-1x m-2 is-playing"
+      ? "fa fa-volume-up fa-1x m-2 is-playing"
       : "fa fa-play fa-1x m-2";
   };
 
   const getCurrentlyPlayingClasses = (trackId) => {
     return trackId === currentlyPlaying ? "is-playing" : "";
+  };
+
+  const handleMouseOver = ({ currentTarget }) => {
+    if (currentTarget.id === currentlyPlaying) {
+      const iconElement = currentTarget.getElementsByTagName("i")[0];
+      iconElement.classList.remove("fa-volume-up");
+      iconElement.classList.add("fa-pause");
+    }
+  };
+
+  const handleMouseOut = ({ currentTarget }) => {
+    if (currentTarget.id === currentlyPlaying) {
+      const iconElement = currentTarget.getElementsByTagName("i")[0];
+      iconElement.classList.remove("fa-pause");
+      iconElement.classList.add("fa-volume-up");
+    }
   };
 
   return (
@@ -70,6 +86,8 @@ function Tracks({ location, tracks, isArtist = false }) {
           key={track.id}
           id={track.id}
           onClick={handleClick}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
           className="row track p-2"
         >
           {isArtist && (
@@ -79,7 +97,12 @@ function Tracks({ location, tracks, isArtist = false }) {
               alt={track.name}
             />
           )}
-          <i className={getIconClasses(track.id)} aria-hidden="true"></i>
+          <i
+            id="icon"
+            name="icon"
+            className={getIconClasses(track.id)}
+            aria-hidden="true"
+          ></i>
           <p className={getCurrentlyPlayingClasses(track.id)}>
             {track.name} ({msToDuration(track.duration_ms)})
           </p>
