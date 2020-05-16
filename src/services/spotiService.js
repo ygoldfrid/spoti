@@ -51,15 +51,24 @@ function unfollowArtist(artistId) {
   return http.delete(`${followEndpoint}?type=artist&ids=${artistId}`);
 }
 
-function getTrackById(trackId) {
-  return http.get(`${tracksEndpoint}${trackId}`);
-}
-
 function getDeviceId() {
   return localStorage.getItem(deviceKey);
 }
 
-async function playTrack(trackId) {
+function getTrackById(trackId) {
+  return http.get(`${tracksEndpoint}${trackId}`);
+}
+
+function playSingleTrack(trackId, position_ms = 0) {
+  const url = `${playerEndpoint}/play?device_id=${getDeviceId()}`;
+  const body = {
+    uris: [`spotify:track:${trackId}`],
+    position_ms: position_ms,
+  };
+  return http.put(url, body);
+}
+
+async function playAlbumTrack(trackId, position_ms = 0) {
   //Track data
   const { data: track } = await getTrackById(trackId);
   const albumId = track.album.id;
@@ -72,7 +81,7 @@ async function playTrack(trackId) {
     offset: {
       position: trackPosition,
     },
-    position_ms: 0,
+    position_ms: position_ms,
   };
   return http.put(url, body);
 }
@@ -99,7 +108,8 @@ export default {
   getUserFollowsArtist,
   followArtist,
   unfollowArtist,
-  playTrack,
+  playSingleTrack,
+  playAlbumTrack,
   getCurrentlyPlaying,
   pauseTrack,
   getPlayer,

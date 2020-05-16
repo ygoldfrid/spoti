@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import spoti from "../services/spotiService";
 import Tracks from "./Tracks";
 
-function ArtistPage({ match, history, user }) {
+function ArtistPage({ match, history, location, user }) {
   const [artist, setArtist] = useState(null);
   const [topTracks, setTopTracks] = useState([]);
   const [follows, setFollows] = useState([false]);
@@ -81,7 +81,7 @@ function ArtistPage({ match, history, user }) {
           <div className="row">
             <h3>Top Tracks</h3>
           </div>
-          <Tracks tracks={topTracks} isArtist={true} />
+          <Tracks tracks={topTracks} location={location} isArtist={true} />
         </Fragment>
       )}
     </Fragment>

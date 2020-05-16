@@ -125,7 +125,7 @@ div.artist-info > h1 {
   margin-bottom: 20px;
 }
 
-.is-playing {
+.in-player {
   color: var(--green);
 }
 
