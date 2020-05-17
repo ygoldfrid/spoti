@@ -39,6 +39,7 @@ p {
   --background: rgb(18, 18, 18);
   --navbar-black: rgb(4, 4, 4);
   --selected: rgb(42, 42, 42);
+  --under-grey: rgb(150, 150, 150);
 }
 
 /* BACKGROUND */
@@ -84,12 +85,14 @@ p > a:hover {
 }
 
 /* TEXT */
-div > p {
+div > p,
+div > h6 {
   margin: 0px;
 }
 
 div.result-info > p {
   font-size: small;
+  color: var(--under-grey);
 }
 
 /* RESULTS */

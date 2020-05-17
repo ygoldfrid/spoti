@@ -37,19 +37,16 @@ function SearchResults({ results, type, onClick }) {
               />
               <div className="result-info">
                 <h6>{result.name}</h6>
-                {type === "artist" && (
-                  <p>
-                    {new Intl.NumberFormat().format(result.followers.total)}{" "}
-                    followers
-                  </p>
-                )}
+                {type === "artist" && <p>Artist</p>}
                 {type === "album" && (
                   <Fragment>
-                    <p>Album by {result.artists[0].name}</p>
+                    <p>Album &bull; {result.artists[0].name}</p>
                     <p>{result.total_tracks} songs</p>
                   </Fragment>
                 )}
-                {type === "track" && <p>Song by {result.artists[0].name}</p>}
+                {type === "track" && (
+                  <p>Song &bull; {result.artists[0].name}</p>
+                )}
               </div>
             </div>
           ))}
