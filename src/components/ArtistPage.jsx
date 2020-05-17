@@ -81,7 +81,12 @@ function ArtistPage({ match, history, location, user }) {
           <div className="row">
             <h3>Top Tracks</h3>
           </div>
-          <Tracks tracks={topTracks} location={location} isArtist={true} />
+          <Tracks
+            type="artist"
+            id={artist.id}
+            tracks={topTracks}
+            location={location}
+          />
         </Fragment>
       )}
     </Fragment>

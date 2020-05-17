@@ -49,7 +49,12 @@ function AlbumPage({ match, history, location }) {
           <div className="row">
             <h3>Tracks</h3>
           </div>
-          <Tracks tracks={tracks} location={location} />
+          <Tracks
+            type="album"
+            id={album.id}
+            tracks={tracks}
+            location={location}
+          />
         </Fragment>
       )}
     </Fragment>

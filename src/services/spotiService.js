@@ -3,11 +3,11 @@ import http from "./httpService";
 const apiEndpoint = "https://api.spotify.com/v1/";
 const artistsEndpoint = apiEndpoint + "artists/";
 const albumsEndpoint = apiEndpoint + "albums/";
-const tracksEndpoint = apiEndpoint + "tracks/";
 
 const userEndpoint = apiEndpoint + "me/";
 const followEndpoint = userEndpoint + "following";
-const playerEndpoint = userEndpoint + "player";
+const playerEndpoint = userEndpoint + "player/";
+const playEndpoint = playerEndpoint + "play";
 
 const deviceKey = "_spharmony_device_id";
 
@@ -55,43 +55,47 @@ function getDeviceId() {
   return localStorage.getItem(deviceKey);
 }
 
-function getTrackById(trackId) {
-  return http.get(`${tracksEndpoint}${trackId}`);
+function playSingleTrack(trackId) {
+  const url = `${playEndpoint}?device_id=${getDeviceId()}`;
+  const body = { uris: [`spotify:track:${trackId}`] };
+  return http.put(url, body);
 }
 
-function playSingleTrack(trackId, position_ms = 0) {
-  const url = `${playerEndpoint}/play?device_id=${getDeviceId()}`;
+async function playArtistTrack(trackId, artistId) {
+  //Top Tracks data
+  const { data: topTracks } = await getArtistTopTracks(artistId, "MX");
+  const topTracksList = topTracks.tracks.map(
+    (track) => `spotify:track:${track.id}`
+  );
+
+  //Play
+  const url = `${playEndpoint}?device_id=${getDeviceId()}`;
   const body = {
-    uris: [`spotify:track:${trackId}`],
-    position_ms: position_ms,
+    uris: topTracksList,
+    offset: { uri: `spotify:track:${trackId}` },
   };
   return http.put(url, body);
 }
 
-async function playAlbumTrack(trackId, position_ms = 0) {
-  //Track data
-  const { data: track } = await getTrackById(trackId);
-  const albumId = track.album.id;
-  const trackPosition = track.track_number - 1;
-
-  //Play
-  const url = `${playerEndpoint}/play?device_id=${getDeviceId()}`;
+async function playAlbumTrack(trackId, albumId) {
+  const url = `${playEndpoint}?device_id=${getDeviceId()}`;
   const body = {
     context_uri: `spotify:album:${albumId}`,
-    offset: {
-      position: trackPosition,
-    },
-    position_ms: position_ms,
+    offset: { uri: `spotify:track:${trackId}` },
   };
   return http.put(url, body);
 }
 
 function getCurrentlyPlaying() {
-  return http.get(`${playerEndpoint}/currently-playing`);
+  return http.get(`${playerEndpoint}currently-playing`);
 }
 
 function pauseTrack() {
-  return http.put(`${playerEndpoint}/pause?device_id=${getDeviceId()}`);
+  return http.put(`${playerEndpoint}pause?device_id=${getDeviceId()}`);
+}
+
+function resumePlayback() {
+  return http.put(playEndpoint);
 }
 
 function getPlayer() {
@@ -109,8 +113,10 @@ export default {
   followArtist,
   unfollowArtist,
   playSingleTrack,
+  playArtistTrack,
   playAlbumTrack,
   getCurrentlyPlaying,
   pauseTrack,
+  resumePlayback,
   getPlayer,
 };
