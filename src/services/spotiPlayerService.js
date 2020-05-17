@@ -46,7 +46,7 @@ function init() {
 }
 
 function stateUpdate(state) {
-  const event = new CustomEvent("stateUpdate", { detail: state.track_window });
+  const event = new CustomEvent("stateUpdate", { detail: state });
   document.dispatchEvent(event);
 }
 

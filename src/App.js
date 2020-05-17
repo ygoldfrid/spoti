@@ -11,6 +11,7 @@ import ArtistPage from "./components/ArtistPage";
 import AlbumPage from "./components/AlbumPage";
 import NotFound from "./components/NotFound";
 import Profile from "./components/Profile";
+import MiniPlayer from "./components/MiniPlayer";
 import auth from "./services/authService";
 import spoti from "./services/spotiService";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,6 +54,7 @@ function App() {
           <Redirect to="/not-found" />
         </Switch>
       </main>
+      {user && <MiniPlayer />}
     </Fragment>
   );
 }

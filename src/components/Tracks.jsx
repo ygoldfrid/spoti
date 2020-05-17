@@ -10,15 +10,10 @@ class Tracks extends Component {
   };
 
   addStateUpdateListener = () => {
-    document.addEventListener("stateUpdate", (e) => {
-      const { currentTrack } = this.state;
-      const updatedTrack = e.detail.current_track.id;
-      if (currentTrack && currentTrack !== updatedTrack) {
-        this.setState({
-          currentTrack: updatedTrack,
-          isPlaying: true,
-        });
-      }
+    document.addEventListener("stateUpdate", ({ detail }) => {
+      const currentTrack = detail.track_window.current_track.id;
+      const isPlaying = !detail.paused;
+      this.setState({ currentTrack, isPlaying });
     });
   };
 
@@ -49,14 +44,11 @@ class Tracks extends Component {
 
   checkCurrentlyPlayingTrack = async () => {
     const { data: currentlyPlaying } = await spoti.getCurrentlyPlaying();
-    if (currentlyPlaying) {
-      const currentId = currentlyPlaying.item.id;
-      if (currentlyPlaying && currentlyPlaying.is_playing) {
-        this.setState({
-          currentTrack: currentId,
-          isPlaying: true,
-        });
-      }
+    if (currentlyPlaying && currentlyPlaying.is_playing) {
+      this.setState({
+        currentTrack: currentlyPlaying.item.id,
+        isPlaying: true,
+      });
     }
   };
 
@@ -110,14 +102,14 @@ class Tracks extends Component {
 
   getIconClasses = (trackId) => {
     if (trackId === this.state.currentTrack) {
-      if (this.state.isPlaying) return "fa fa-volume-up fa-1x m-2 in-player";
-      return "fa fa-play fa-1x m-2 in-player";
+      if (this.state.isPlaying) return "fa fa-volume-up fa-1x m-2 green";
+      return "fa fa-play fa-1x m-2 green";
     }
     return "fa fa-play fa-1x m-2";
   };
 
   getTrackNameClasses = (trackId) => {
-    return trackId === this.state.currentTrack ? "in-player" : "";
+    return trackId === this.state.currentTrack ? "green" : "";
   };
 
   render() {

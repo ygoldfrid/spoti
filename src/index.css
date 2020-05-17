@@ -1,13 +1,3 @@
-body {
-  color: yellow;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 /* FONTS */
 @font-face {
   font-family: lineto-circular-pro-book;
@@ -125,10 +115,19 @@ div.artist-info > h1 {
   margin-bottom: 20px;
 }
 
-.in-player {
+.green {
   color: var(--green);
 }
 
+/* MINI-PLAYER */
+.mini-player {
+  background-color: var(--navbar-black);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* MOBILE */
 @media screen and (max-width: 500px) {
   .artist,
   .album {

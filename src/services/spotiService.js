@@ -102,6 +102,29 @@ function getPlayer() {
   return http.get(`${playerEndpoint}`);
 }
 
+function skipToNextTrack() {
+  return http.post(`${playerEndpoint}next`);
+}
+
+function skipToPreviousTrack() {
+  return http.post(`${playerEndpoint}previous`);
+}
+
+function shuffle(state) {
+  return http.put(`${playerEndpoint}shuffle?state=${state}`);
+}
+
+function repeat(repeatMode) {
+  const context = repeatModetoContext(repeatMode);
+  return http.put(`${playerEndpoint}repeat?state=${context}`);
+}
+
+function repeatModetoContext(repeatMode) {
+  if (repeatMode === 0) return "off";
+  if (repeatMode === 1) return "context";
+  if (repeatMode === 2) return "track";
+}
+
 export default {
   getCurrentUser,
   search,
@@ -119,4 +142,8 @@ export default {
   pauseTrack,
   resumePlayback,
   getPlayer,
+  skipToNextTrack,
+  skipToPreviousTrack,
+  shuffle,
+  repeat,
 };
