@@ -9,21 +9,6 @@ class Tracks extends Component {
     progress: 0,
   };
 
-  async componentDidMount() {
-    this.addStateUpdateListener();
-    if (this.props.location.search) this.playQuery();
-    const { data: currentlyPlaying } = await spoti.getCurrentlyPlaying();
-    if (currentlyPlaying) {
-      const currentId = currentlyPlaying.item.id;
-      if (currentlyPlaying && currentlyPlaying.is_playing) {
-        this.setState({
-          currentTrack: currentId,
-          isPlaying: true,
-        });
-      }
-    }
-  }
-
   addStateUpdateListener = () => {
     document.addEventListener("stateUpdate", (e) => {
       const { currentTrack } = this.state;
@@ -36,6 +21,12 @@ class Tracks extends Component {
       }
     });
   };
+
+  async componentDidMount() {
+    this.addStateUpdateListener();
+    if (this.props.location.search) this.playQuery();
+    else this.checkCurrentlyPlayingTrack();
+  }
 
   playQuery = async () => {
     try {
@@ -55,36 +46,55 @@ class Tracks extends Component {
     }
   };
 
-  handleClick = async ({ currentTarget }) => {
-    const targetId = currentTarget.id;
-    try {
-      const { data: currentlyPlaying } = await spoti.getCurrentlyPlaying();
-      if (currentlyPlaying) {
-        const currentId = currentlyPlaying.item.id;
-        //If we clicked the song that is being played, we pause it
-        if (targetId === currentId && currentlyPlaying.is_playing) {
-          await spoti.pauseTrack(targetId);
-          const { data: player } = await spoti.getPlayer();
-          this.setState({
-            progress: player.progress_ms,
-            isPlaying: false,
-          });
-          return;
-        }
+  checkCurrentlyPlayingTrack = async () => {
+    const { data: currentlyPlaying } = await spoti.getCurrentlyPlaying();
+    if (currentlyPlaying) {
+      const currentId = currentlyPlaying.item.id;
+      if (currentlyPlaying && currentlyPlaying.is_playing) {
+        this.setState({
+          currentTrack: currentId,
+          isPlaying: true,
+        });
       }
-      //We play the clicked song
-      //If it is the one that is in the player (paused) we start from the saved progress
-      //If it is not the one in the player, we start from 0
-      const playProgress =
-        targetId === this.state.currentTrack ? this.state.progress : 0;
-      await spoti.playAlbumTrack(targetId, playProgress);
-      this.setState({
-        currentTrack: targetId,
-        isPlaying: true,
-      });
+    }
+  };
+
+  handleClick = async ({ currentTarget }) => {
+    try {
+      const targetId = currentTarget.id;
+      const { data: currentlyPlaying } = await spoti.getCurrentlyPlaying();
+      const pauseIt =
+        currentlyPlaying &&
+        currentlyPlaying.is_playing &&
+        currentlyPlaying.item.id === targetId;
+      if (pauseIt) this.pauseTrack(targetId);
+      else this.playTrack(targetId);
     } catch (ex) {
       console.log(ex);
     }
+  };
+
+  pauseTrack = async (targetId) => {
+    //If we clicked the song that is being played, we pause it
+    await spoti.pauseTrack(targetId);
+    const { data: player } = await spoti.getPlayer();
+    this.setState({
+      progress: player.progress_ms,
+      isPlaying: false,
+    });
+  };
+
+  playTrack = async (targetId) => {
+    //We play the clicked song
+    //If it is the one that is in the player (paused) we start from the saved progress
+    //If it is not the one in the player, we start from 0
+    const playProgress =
+      targetId === this.state.currentTrack ? this.state.progress : 0;
+    await spoti.playAlbumTrack(targetId, playProgress);
+    this.setState({
+      currentTrack: targetId,
+      isPlaying: true,
+    });
   };
 
   msToDuration = (ms) => {
