@@ -13,6 +13,11 @@
 }
 
 /* MAIN */
+
+.container {
+  margin-bottom: 100px;
+}
+
 h1,
 h2,
 h3 {
@@ -34,13 +39,14 @@ p {
 
 /* BUTTONS */
 :root {
-  --navbar-black: rgb(4, 4, 4);
-  --background-black: rgb(18, 18, 18);
-  --miniplayer-grey: rgb(40, 40, 40);
-  --selected-grey: rgb(42, 42, 42);
-  --under-grey: rgb(150, 150, 150);
-  --green: rgb(29, 185, 84);
-  --green-hover: rgb(30, 215, 96);
+  --navbar-black: #040404;
+  --background-black: #121212;
+  --miniplayer-grey: #282828;
+  --selected-grey: #2a2a2a;
+  --timeline-grey: #5a5a5a;
+  --under-grey: #969696;
+  --green: #1db954;
+  --green-hover: #1ed760;
 }
 
 /* BACKGROUND */
@@ -145,6 +151,24 @@ div.artist-info > h1 {
   .album {
     justify-content: center;
   }
+}
+
+/* TIMELINE */
+#timeline {
+  margin: 5px;
+  width: 80%;
+  height: 4px;
+  border-radius: 15px;
+  border-radius: 30px;
+  background: var(--timeline-grey);
+}
+
+#handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
 }
 /* button.more {
   background: none !important;

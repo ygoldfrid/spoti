@@ -6,8 +6,10 @@ const albumsEndpoint = apiEndpoint + "albums/";
 
 const userEndpoint = apiEndpoint + "me/";
 const followEndpoint = userEndpoint + "following";
+
 const playerEndpoint = userEndpoint + "player/";
 const playEndpoint = playerEndpoint + "play";
+const volumeEndpoint = playerEndpoint + "volume";
 
 const deviceKey = "_spharmony_device_id";
 
@@ -125,6 +127,10 @@ function repeatModetoContext(repeatMode) {
   if (repeatMode === 2) return "track";
 }
 
+function setPlayerVolume(volume) {
+  return http.put(`${volumeEndpoint}?volume_percent=${volume}`);
+}
+
 export default {
   getCurrentUser,
   search,
@@ -146,4 +152,5 @@ export default {
   skipToPreviousTrack,
   shuffle,
   repeat,
+  setPlayerVolume,
 };

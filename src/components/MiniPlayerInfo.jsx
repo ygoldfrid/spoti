@@ -27,7 +27,7 @@ function MiniPlayerInfo({ currentTrack }) {
             <div className="w-100"></div>
             <div className="col">
               {currentTrack.artists.map((artist) => (
-                <h6>
+                <h6 key={artist.uri}>
                   <Link to={`/artist/${artist.uri.slice(15)}`}>
                     {artist.name}
                   </Link>

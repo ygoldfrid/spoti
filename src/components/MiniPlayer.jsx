@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import MiniPlayerInfo from "./MiniPlayerInfo";
-import MiniPlayerButtons from "./MiniPlayerButtons";
+import MiniPlayerControls from "./MiniPlayerControls";
 import MiniPlayerVolume from "./MiniPlayerVolume";
 
 class MiniPlayer extends Component {
@@ -33,7 +33,7 @@ class MiniPlayer extends Component {
           <div className="mini-player p-2">
             <div className="row align-items-center">
               <MiniPlayerInfo currentTrack={currentTrack} />
-              <MiniPlayerButtons
+              <MiniPlayerControls
                 isPlaying={isPlaying}
                 shuffle={shuffle}
                 repeatMode={repeatMode}
