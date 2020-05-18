@@ -34,12 +34,13 @@ p {
 
 /* BUTTONS */
 :root {
+  --navbar-black: rgb(4, 4, 4);
+  --background-black: rgb(18, 18, 18);
+  --miniplayer-grey: rgb(40, 40, 40);
+  --selected-grey: rgb(42, 42, 42);
+  --under-grey: rgb(150, 150, 150);
   --green: rgb(29, 185, 84);
   --green-hover: rgb(30, 215, 96);
-  --background: rgb(18, 18, 18);
-  --navbar-black: rgb(4, 4, 4);
-  --selected: rgb(42, 42, 42);
-  --under-grey: rgb(150, 150, 150);
 }
 
 /* BACKGROUND */
@@ -86,12 +87,19 @@ p > a:hover {
 
 /* TEXT */
 div > p,
+div > h5,
 div > h6 {
   margin: 0px;
 }
 
-div.result-info > p {
-  font-size: small;
+div.mini-player-text > div > h5 > a {
+  font-size: 14px;
+  color: white;
+}
+
+div.result-info > p,
+div.mini-player-text > div > h6 > a {
+  font-size: 13px;
   color: var(--under-grey);
 }
 
@@ -99,7 +107,7 @@ div.result-info > p {
 div.result:hover,
 div.track:hover {
   cursor: pointer;
-  background-color: var(--selected);
+  background-color: var(--selected-grey);
 }
 
 div.results {
@@ -124,7 +132,8 @@ div.artist-info > h1 {
 
 /* MINI-PLAYER */
 .mini-player {
-  background-color: var(--navbar-black);
+  border-top: solid 1px black;
+  background-color: var(--miniplayer-grey);
   position: fixed;
   bottom: 0;
   width: 100%;
