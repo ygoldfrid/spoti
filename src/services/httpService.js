@@ -16,6 +16,8 @@ axios.interceptors.response.use(null, (error) => {
   } else if (error.response.status === 401) {
     window.location = "/logout";
     toast.error("Your session expired");
+  } else if (error.response.status === 403) {
+    toast.info("Premium Account Required");
   }
 
   return Promise.reject(error);
