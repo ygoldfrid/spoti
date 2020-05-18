@@ -49,37 +49,38 @@ function ArtistPage({ match, history, location, user }) {
     } catch (ex) {}
   };
 
-  const getButtonClasses = () => {
-    return follows
-      ? "btn btn-spoti btn-spoti-clear my-3"
-      : "btn btn-spoti my-3";
-  };
-
   return (
     <Fragment>
       {artist && (
         <Fragment>
-          <div className="row artist p-2 mb-4">
-            <img
-              className="m-3"
-              height="250"
-              width="250"
-              alt={artist.name}
-              src={artist.images[0] ? artist.images[0].url : ""}
-            />
+          <div className="artist p-2 mb-4">
+            <div className="row justify-content-center">
+              <img
+                className="m-3"
+                height="250"
+                width="250"
+                alt={artist.name}
+                src={artist.images[0] ? artist.images[0].url : ""}
+              />
+            </div>
             <div className="artist-info mt-3">
               <h1 className="text-center mb-1">{artist.name}</h1>
               <p className="text-center">
                 {new Intl.NumberFormat().format(artist.followers.total)}{" "}
                 followers
               </p>
-              <button onClick={handleFollow} className={getButtonClasses()}>
-                {follows ? "FOLLOWING" : "FOLLOW"}
+            </div>
+            <div className="row justify-content-center">
+              <button
+                onClick={handleFollow}
+                className="btn btn-spoti-clear my-3"
+              >
+                {follows ? "Following" : "Follow"}
               </button>
             </div>
           </div>
           <div className="row">
-            <h3>Top Tracks</h3>
+            <h3>Popular</h3>
           </div>
           <Tracks
             type="artist"

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
-import spoti from "../services/spotiService";
-import Tracks from "./Tracks";
 import { Link } from "react-router-dom";
+import Tracks from "./Tracks";
+import spoti from "../services/spotiService";
 
 function AlbumPage({ match, history, location }) {
   const [album, setAlbum] = useState(null);
@@ -26,14 +26,16 @@ function AlbumPage({ match, history, location }) {
     <Fragment>
       {album && (
         <Fragment>
-          <div className="row album p-2 mb-4">
-            <img
-              className="m-3"
-              height="250"
-              width="250"
-              alt={album.name}
-              src={album.images[0] ? album.images[0].url : ""}
-            />
+          <div className="album p-2 mb-4">
+            <div className="row justify-content-center">
+              <img
+                className="m-3"
+                height="250"
+                width="250"
+                alt={album.name}
+                src={album.images[0] ? album.images[0].url : ""}
+              />
+            </div>
             <div className="album-info mt-3">
               <h1 className="text-center mb-1">{album.name}</h1>
               <p className="text-center">

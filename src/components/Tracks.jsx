@@ -76,8 +76,8 @@ class Tracks extends Component {
     const { type, id } = this.props;
     const { currentTrack } = this.state;
     if (targetId === currentTrack) await spoti.resumePlayback();
-    else if (type === "artist") spoti.playArtistTrack(targetId, id);
-    else if (type === "album") spoti.playAlbumTrack(targetId, id);
+    else if (type === "artist") await spoti.playArtistTrack(targetId, id);
+    else if (type === "album") await spoti.playAlbumTrack(targetId, id);
     this.setState({
       currentTrack: targetId,
       isPlaying: true,
