@@ -36,7 +36,7 @@ function AlbumPage({ match, history, location }) {
                 src={album.images[0] ? album.images[0].url : ""}
               />
             </div>
-            <div className="album-info mt-3">
+            <div className="album-info">
               <h1 className="text-center mb-1">{album.name}</h1>
               <p className="text-center">
                 Album by{" "}

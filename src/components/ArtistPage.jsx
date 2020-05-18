@@ -63,7 +63,7 @@ function ArtistPage({ match, history, location, user }) {
                 src={artist.images[0] ? artist.images[0].url : ""}
               />
             </div>
-            <div className="artist-info mt-3">
+            <div className="artist-info">
               <h1 className="text-center mb-1">{artist.name}</h1>
               <p className="text-center">
                 {new Intl.NumberFormat().format(artist.followers.total)}{" "}

@@ -131,6 +131,10 @@ function setPlayerVolume(volume) {
   return http.put(`${volumeEndpoint}?volume_percent=${volume}`);
 }
 
+function getRecentlyPlayed() {
+  return http.get(`${playerEndpoint}recently-played`);
+}
+
 export default {
   getCurrentUser,
   search,
@@ -153,4 +157,5 @@ export default {
   shuffle,
   repeat,
   setPlayerVolume,
+  getRecentlyPlayed,
 };
