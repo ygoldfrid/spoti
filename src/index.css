@@ -37,14 +37,15 @@ p {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
-/* BUTTONS */
+/* COLORS */
 :root {
   --navbar-black: #040404;
   --background-black: #121212;
-  --miniplayer-grey: #282828;
+  --mini-player-grey: #282828;
   --selected-grey: #2a2a2a;
-  --timeline-grey: #5a5a5a;
+  --mini-player-controls-off: #535353;
   --under-grey: #969696;
+  --mini-player-controls-on: #b3b3b3;
   --green: #1db954;
   --green-hover: #1ed760;
 }
@@ -144,10 +145,33 @@ div.artist-info > h1 {
 /* MINI-PLAYER */
 .mini-player {
   border-top: solid 1px black;
-  background-color: var(--miniplayer-grey);
+  background-color: var(--mini-player-grey);
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+.mini-player-volume > div,
+.mini-player-controls > div {
+  color: var(--mini-player-controls-on);
+}
+
+.mini-player-buttons > i:hover {
+  color: white;
+}
+
+.mini-player-buttons > i.green:hover {
+  color: var(--green-hover);
+}
+
+.time-bar > p {
+  font-size: 12px;
+  color: var(--mini-player-controls-on);
+}
+
+#time-bar,
+#volume-bar {
+  cursor: pointer;
 }
 
 /* button.more {

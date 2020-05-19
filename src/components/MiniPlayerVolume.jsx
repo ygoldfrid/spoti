@@ -25,9 +25,9 @@ class MiniPlayerVolume extends Component {
 
   drawProgress = (canvas, context, volume = 100) => {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = "#5a5a5a";
+    context.fillStyle = "#535353";
     context.fillRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = "#FFFFFF";
+    context.fillStyle = "#b3b3b3";
     context.fillRect(0, 0, volume, canvas.height);
   };
 
@@ -66,8 +66,8 @@ class MiniPlayerVolume extends Component {
 
   render() {
     return (
-      <div className="col d-flex justify-content-end">
-        <div className="row align-items-center m-3">
+      <div className="col mini-player-volume d-flex justify-content-end">
+        <div className="row mini-player-buttons align-items-center m-3">
           <i
             onClick={this.handleClickIcon}
             className={this.getIconClasses()}

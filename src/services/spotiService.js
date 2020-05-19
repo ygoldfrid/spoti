@@ -10,6 +10,7 @@ const followEndpoint = userEndpoint + "following";
 const playerEndpoint = userEndpoint + "player/";
 const playEndpoint = playerEndpoint + "play";
 const volumeEndpoint = playerEndpoint + "volume";
+const seekEndpoint = playerEndpoint + "seek";
 
 const deviceKey = "_spharmony_device_id";
 
@@ -63,9 +64,9 @@ function playSingleTrack(trackId) {
   return http.put(url, body);
 }
 
-async function playArtistTrack(trackId, artistId) {
+async function playArtistTrack(trackId, artistId, country) {
   //Top Tracks data
-  const { data: topTracks } = await getArtistTopTracks(artistId, "MX");
+  const { data: topTracks } = await getArtistTopTracks(artistId, country);
   const topTracksList = topTracks.tracks.map(
     (track) => `spotify:track:${track.id}`
   );
@@ -131,6 +132,10 @@ function setPlayerVolume(volume) {
   return http.put(`${volumeEndpoint}?volume_percent=${volume}`);
 }
 
+function seek(position_ms) {
+  return http.put(`${seekEndpoint}?position_ms=${position_ms}`);
+}
+
 function getRecentlyPlayed() {
   return http.get(`${playerEndpoint}recently-played`);
 }
@@ -157,5 +162,6 @@ export default {
   shuffle,
   repeat,
   setPlayerVolume,
+  seek,
   getRecentlyPlayed,
 };

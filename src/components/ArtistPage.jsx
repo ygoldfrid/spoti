@@ -87,6 +87,7 @@ function ArtistPage({ match, history, location, user }) {
             id={artist.id}
             tracks={topTracks}
             location={location}
+            user={user}
           />
         </Fragment>
       )}

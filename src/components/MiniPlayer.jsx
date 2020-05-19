@@ -9,6 +9,7 @@ class MiniPlayer extends Component {
     isPlaying: false,
     shuffle: false,
     repeatMode: 0,
+    elapsed: 0,
   };
 
   addStateUpdateListener = () => {
@@ -17,7 +18,8 @@ class MiniPlayer extends Component {
       const isPlaying = !detail.paused;
       const shuffle = detail.shuffle;
       const repeatMode = detail.repeat_mode;
-      this.setState({ currentTrack, isPlaying, shuffle, repeatMode });
+      const elapsed = detail.position;
+      this.setState({ currentTrack, isPlaying, shuffle, repeatMode, elapsed });
     });
   };
 
@@ -26,7 +28,13 @@ class MiniPlayer extends Component {
   }
 
   render() {
-    const { currentTrack, isPlaying, shuffle, repeatMode } = this.state;
+    const {
+      currentTrack,
+      isPlaying,
+      shuffle,
+      repeatMode,
+      elapsed,
+    } = this.state;
     return (
       <Fragment>
         {currentTrack.id && (
@@ -34,9 +42,11 @@ class MiniPlayer extends Component {
             <div className="row align-items-center">
               <MiniPlayerInfo currentTrack={currentTrack} />
               <MiniPlayerControls
+                currentTrack={currentTrack}
                 isPlaying={isPlaying}
                 shuffle={shuffle}
                 repeatMode={repeatMode}
+                elapsed={elapsed}
               />
               <MiniPlayerVolume />
             </div>
