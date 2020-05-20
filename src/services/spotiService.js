@@ -34,6 +34,12 @@ function getArtistTopTracks(artistId, country) {
   );
 }
 
+function getArtistAlbums(artistId, group, country) {
+  return http.get(
+    `${artistsEndpoint}${artistId}/albums?include_groups=${group}&market=${country}`
+  );
+}
+
 function getAlbumById(albumId) {
   return http.get(albumsEndpoint + albumId);
 }
@@ -145,6 +151,7 @@ export default {
   search,
   getArtistById,
   getArtistTopTracks,
+  getArtistAlbums,
   getAlbumById,
   getAlbumTracks,
   getUserFollowsArtist,

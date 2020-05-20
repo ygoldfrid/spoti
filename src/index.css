@@ -174,10 +174,10 @@ div.artist-info > h1 {
   cursor: pointer;
 }
 
-/* button.more {
-  background: none !important;
-  border: none;
-  padding: 0 !important;
-  color: white;
+.big-result {
   cursor: pointer;
-} */
+}
+.big-result > p {
+  font-family: lineto-circular-pro-bold;
+  font-size: 14px;
+}

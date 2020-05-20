@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import queryString from "query-string";
 import spoti from "../services/spotiService";
 import { msToDuration } from "./../utils/converter";
@@ -117,30 +117,38 @@ class Tracks extends Component {
     const { tracks: allTracks, type } = this.props;
     const tracks = type === "artist" ? allTracks.slice(0, 5) : allTracks;
     return (
-      <div className="tracks" id="tracks">
-        {tracks.map((track) => (
-          <div
-            key={track.id}
-            id={track.id}
-            onClick={this.handleClick}
-            onMouseOver={this.handleMouseOver}
-            onMouseOut={this.handleMouseOut}
-            className="row track p-2"
-          >
-            {type === "artist" && (
-              <img
-                className="m-2"
-                src={track.album.images[2].url}
-                alt={track.name}
-              />
-            )}
-            <i className={this.getIconClasses(track.id)} aria-hidden="true"></i>
-            <p className={this.getTrackNameClasses(track.id)}>
-              {track.name} ({msToDuration(track.duration_ms)})
-            </p>
-          </div>
-        ))}
-      </div>
+      <Fragment>
+        <div className="row">
+          <h3>{this.props.title}</h3>
+        </div>
+        <div className="tracks" id="tracks">
+          {tracks.map((track) => (
+            <div
+              key={track.id}
+              id={track.id}
+              onClick={this.handleClick}
+              onMouseOver={this.handleMouseOver}
+              onMouseOut={this.handleMouseOut}
+              className="row track p-2"
+            >
+              {type === "artist" && (
+                <img
+                  className="m-2"
+                  src={track.album.images[2].url}
+                  alt={track.name}
+                />
+              )}
+              <i
+                className={this.getIconClasses(track.id)}
+                aria-hidden="true"
+              ></i>
+              <p className={this.getTrackNameClasses(track.id)}>
+                {track.name} ({msToDuration(track.duration_ms)})
+              </p>
+            </div>
+          ))}
+        </div>
+      </Fragment>
     );
   }
 }

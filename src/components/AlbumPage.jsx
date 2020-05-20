@@ -48,10 +48,8 @@ function AlbumPage({ match, history, location }) {
               </p>
             </div>
           </div>
-          <div className="row">
-            <h3>Tracks</h3>
-          </div>
           <Tracks
+            title="Tracks"
             type="album"
             id={album.id}
             tracks={tracks}
