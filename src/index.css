@@ -1,3 +1,8 @@
+/* MAIN */
+.container {
+  margin-bottom: 120px;
+}
+
 /* FONTS */
 @font-face {
   font-family: lineto-circular-pro-book;
@@ -12,12 +17,7 @@
   src: url(./fonts/lineto-circular-black.ttf);
 }
 
-/* MAIN */
-
-.container {
-  margin-bottom: 100px;
-}
-
+/* TEXT */
 h1,
 h2,
 h3 {
@@ -35,6 +35,12 @@ p {
   font-family: lineto-circular-pro-book, -apple-system, BlinkMacSystemFont,
     "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+div > p,
+div > h5,
+div > h6 {
+  margin: 0px;
 }
 
 /* COLORS */
@@ -97,48 +103,45 @@ p > a:hover {
   color: var(--green-hover);
 }
 
-/* TEXT */
-div > p,
-div > h5,
-div > h6 {
-  margin: 0px;
-}
-
-div.mini-player-text > div > h5 > a {
-  font-size: 14px;
-  color: white;
-}
-
-div.result-info > p,
-div.mini-player-text > div > h6 > a {
-  font-size: 13px;
-  color: var(--under-grey);
-}
-
 /* RESULTS */
-div.result:hover,
-div.track:hover {
+.big-result {
   cursor: pointer;
-  background-color: var(--selected-grey);
 }
 
-div.results {
+.big-result > p {
+  font-family: lineto-circular-pro-bold;
+  font-size: 14px;
+}
+
+div.small-results {
   color: white;
   padding: 10px;
   margin-bottom: 10px;
 }
 
-div.track,
-div.result {
+div.small-result:hover,
+div.track:hover {
+  cursor: pointer;
+  background-color: var(--selected-grey);
+}
+
+div.small-result,
+div.track {
   border-top: solid 1px white;
   align-items: center;
 }
 
+div.small-result-info > p,
+div.mini-player-text > div > h6 > a {
+  font-size: 13px;
+  color: var(--under-grey);
+}
+
+/* MINI-PLAYER */
 .green {
   color: var(--green);
 }
 
-/* MINI-PLAYER */
 .mini-player {
   border-top: solid 1px black;
   background-color: var(--mini-player-grey);
@@ -160,6 +163,11 @@ div.result {
   color: var(--green-hover);
 }
 
+div.mini-player-text > div > h5 > a {
+  font-size: 14px;
+  color: white;
+}
+
 .time-bar > p {
   font-size: 12px;
   color: var(--mini-player-controls-on);
@@ -168,12 +176,4 @@ div.result {
 #time-bar,
 #volume-bar {
   cursor: pointer;
-}
-
-.big-result {
-  cursor: pointer;
-}
-.big-result > p {
-  font-family: lineto-circular-pro-bold;
-  font-size: 14px;
 }

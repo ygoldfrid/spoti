@@ -3,7 +3,6 @@ import Tracks from "./Tracks";
 import BigResults from "./common/BigResults";
 import MainPage from "./common/MainPage";
 import spoti from "../services/spotiService";
-import { toNumberFormat } from "../utils/converter";
 
 class ArtistPage extends Component {
   state = {
@@ -107,7 +106,6 @@ class ArtistPage extends Component {
             <MainPage
               type="artist"
               object={artist}
-              subtitle={toNumberFormat(artist.followers.total) + " followers"}
               onFollowClick={this.handleFollow}
               follows={follows}
             />

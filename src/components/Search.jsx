@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Form } from "react-bootstrap";
 import spoti from "../services/spotiService";
-import SearchResults from "./SearchResults";
+import SmallResults from "./common/SmallResults";
 
 function Search({ history }) {
   const [artists, setArtists] = useState([]);
@@ -28,10 +28,6 @@ function Search({ history }) {
     setTracks(tracksData.tracks.items);
   };
 
-  const handleClick = ({ currentTarget }) => {
-    history.push(currentTarget.id);
-  };
-
   return (
     <Fragment>
       <Form.Control
@@ -41,13 +37,24 @@ function Search({ history }) {
       />
       {(artists.length !== 0 || albums.length !== 0) && (
         <div className="results">
-          <SearchResults
-            results={artists}
+          <SmallResults
             type="artist"
-            onClick={handleClick}
+            title="Artists"
+            results={artists}
+            history={history}
           />
-          <SearchResults results={albums} type="album" onClick={handleClick} />
-          <SearchResults results={tracks} type="track" onClick={handleClick} />
+          <SmallResults
+            type="album"
+            title="Albums"
+            results={albums}
+            history={history}
+          />
+          <SmallResults
+            type="track"
+            title="Songs"
+            results={tracks}
+            history={history}
+          />
         </div>
       )}
     </Fragment>
