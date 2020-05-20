@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
+import MainPage from "./common/MainPage";
 import spoti from "../services/spotiService";
 
 function Profile({ user, history }) {
@@ -24,28 +25,20 @@ function Profile({ user, history }) {
     return `/album/${result.album.id}?track=${result.id}`;
   };
 
+  const getSubtitle = () => {
+    return (
+      <Fragment>
+        {user.country} &bull; {user.followers.total} followers &bull;{" "}
+        {user.email}
+      </Fragment>
+    );
+  };
+
   return (
     <div className="user-profile p-2 mb-4">
       {user && (
         <Fragment>
-          <div className="user-info p-2 mb-4">
-            <div className="row justify-content-center">
-              <img
-                className="m-3"
-                height="250"
-                width="250"
-                alt={user.display_name}
-                src={user.images[0] ? user.images[0].url : ""}
-              />
-            </div>
-            <div className="user-info">
-              <h1 className="text-center mb-1">{user.display_name}</h1>
-              <p className="text-center">
-                {user.country} &bull; {user.followers.total} followers &bull;{" "}
-                {user.email}
-              </p>
-            </div>
-          </div>
+          <MainPage type="profile" object={user} subtitle={getSubtitle()} />
           <div className="row">
             <h3>Play History</h3>
           </div>

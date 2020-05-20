@@ -1,7 +1,9 @@
 import React, { Fragment, Component } from "react";
-import spoti from "../services/spotiService";
 import Tracks from "./Tracks";
 import BigResults from "./common/BigResults";
+import MainPage from "./common/MainPage";
+import spoti from "../services/spotiService";
+import { toNumberFormat } from "../utils/converter";
 
 class ArtistPage extends Component {
   state = {
@@ -15,42 +17,33 @@ class ArtistPage extends Component {
   };
 
   componentDidMount = async () => {
+    const { id } = this.props.match.params;
+    this.getArtist(id);
+    this.getFollowingInfo(id);
+    if (this.props.user) this.getAll(id);
+  };
+
+  componentDidUpdate(prevProps) {
+    const { id } = this.props.match.params;
+    if (prevProps.user !== this.props.user) this.getAll(id);
+  }
+
+  getAll = (id) => {
+    this.getTopTracks(id);
+    this.getAlbums(id, "album");
+    this.getAlbums(id, "single");
+    this.getAlbums(id, "compilation");
+    this.getAlbums(id, "appears_on");
+  };
+
+  getArtist = async (id) => {
     try {
-      const id = this.props.match.params.id;
-      this.getArtist(id);
-      this.getFollowingInfo(id);
-      if (this.props.user) {
-        this.getTopTracks(id);
-        this.getAlbums(id, "album");
-        this.getAlbums(id, "single");
-        this.getAlbums(id, "compilation");
-        this.getAlbums(id, "appears_on");
-      }
+      const { data: artist } = await spoti.getArtistById(id);
+      this.setState({ artist });
     } catch (ex) {
       if (ex.response && ex.response.status === 400)
         this.props.history.replace("/not-found");
     }
-  };
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.user !== this.props.user) {
-      try {
-        const id = this.props.match.params.id;
-        this.getTopTracks(id);
-        this.getAlbums(id, "album");
-        this.getAlbums(id, "single");
-        this.getAlbums(id, "compilation");
-        this.getAlbums(id, "appears_on");
-      } catch (ex) {
-        if (ex.response && ex.response.status === 400)
-          this.props.history.replace("/not-found");
-      }
-    }
-  }
-
-  getArtist = async (id) => {
-    const { data: artist } = await spoti.getArtistById(id);
-    this.setState({ artist });
   };
 
   getFollowingInfo = async (id) => {
@@ -80,12 +73,12 @@ class ArtistPage extends Component {
 
   handleFollow = async () => {
     try {
-      const id = this.props.match.params.id;
-      if (this.state.follows) {
-        await spoti.unfollowArtist(id);
+      const { artist, follows } = this.state;
+      if (follows) {
+        await spoti.unfollowArtist(artist.id);
         this.setState({ follows: false });
       } else {
-        await spoti.followArtist(id);
+        await spoti.followArtist(artist.id);
         this.setState({ follows: true });
       }
     } catch (ex) {}
@@ -101,48 +94,29 @@ class ArtistPage extends Component {
       compilations: allCompilations,
       appears_on: allAppears,
     } = this.state;
-    const { location, user } = this.props;
+
     const albums = allAlbums.slice(0, 12);
     const singles = allSingles.slice(0, 6);
     const compilations = allCompilations.slice(0, 6);
     const appears_on = allAppears.slice(0, 6);
+
     return (
       <Fragment>
         {artist && (
           <Fragment>
-            <div className="artist p-2 mb-4">
-              <div className="row justify-content-center">
-                <img
-                  className="m-3"
-                  height="250"
-                  width="250"
-                  alt={artist.name}
-                  src={artist.images[0] ? artist.images[0].url : ""}
-                />
-              </div>
-              <div className="artist-info">
-                <h1 className="text-center mb-1">{artist.name}</h1>
-                <p className="text-center">
-                  {new Intl.NumberFormat().format(artist.followers.total)}{" "}
-                  followers
-                </p>
-              </div>
-              <div className="row justify-content-center">
-                <button
-                  onClick={this.handleFollow}
-                  className="btn btn-spoti-clear my-3"
-                >
-                  {follows ? "Following" : "Follow"}
-                </button>
-              </div>
-            </div>
+            <MainPage
+              type="artist"
+              object={artist}
+              subtitle={toNumberFormat(artist.followers.total) + " followers"}
+              onFollowClick={this.handleFollow}
+              follows={follows}
+            />
             <Tracks
               title="Popular"
               type="artist"
               id={artist.id}
               tracks={topTracks}
-              location={location}
-              user={user}
+              {...this.props}
             />
             <BigResults title="Albums" results={albums} {...this.props} />
             <BigResults title="Singles" results={singles} {...this.props} />

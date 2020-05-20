@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Tracks from "./Tracks";
+import MainPage from "./common/MainPage";
 import spoti from "../services/spotiService";
 
 function AlbumPage({ match, history, location }) {
@@ -22,32 +23,24 @@ function AlbumPage({ match, history, location }) {
     getAlbum();
   }, [match.params.id, history]);
 
+  const getSubtitle = () => {
+    return (
+      <Fragment>
+        Album by{" "}
+        <Link to={`/artist/${album.artists[0].id}`}>
+          {album.artists[0].name}
+        </Link>{" "}
+        &bull; {album.total_tracks} songs &bull;{" "}
+        {album.release_date.slice(0, 4)}
+      </Fragment>
+    );
+  };
+
   return (
     <Fragment>
       {album && (
         <Fragment>
-          <div className="album p-2 mb-4">
-            <div className="row justify-content-center">
-              <img
-                className="m-3"
-                height="250"
-                width="250"
-                alt={album.name}
-                src={album.images[0] ? album.images[0].url : ""}
-              />
-            </div>
-            <div className="album-info">
-              <h1 className="text-center mb-1">{album.name}</h1>
-              <p className="text-center">
-                Album by{" "}
-                <Link to={`/artist/${album.artists[0].id}`}>
-                  {album.artists[0].name}
-                </Link>{" "}
-                &bull; {album.total_tracks} songs &bull;{" "}
-                {album.release_date.slice(0, 4)}
-              </p>
-            </div>
-          </div>
+          <MainPage object={album} subtitle={getSubtitle()} />
           <Tracks
             title="Tracks"
             type="album"

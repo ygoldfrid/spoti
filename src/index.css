@@ -134,10 +134,6 @@ div.result {
   align-items: center;
 }
 
-div.artist-info > h1 {
-  margin-bottom: 20px;
-}
-
 .green {
   color: var(--green);
 }

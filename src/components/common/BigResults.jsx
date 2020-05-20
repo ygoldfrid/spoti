@@ -1,10 +1,6 @@
 import React, { Fragment } from "react";
 
 function BigResults({ title, results, history }) {
-  const handleClick = ({ currentTarget }) => {
-    history.push(currentTarget.id);
-  };
-
   return (
     <Fragment>
       {(title === "Albums" || results.length > 2) && (
@@ -16,8 +12,9 @@ function BigResults({ title, results, history }) {
             {results.map((result) => (
               <div
                 key={result.id}
-                id={`/album/${result.id}`}
-                onClick={handleClick}
+                onClick={() => {
+                  history.push(`/album/${result.id}`);
+                }}
                 className="col-2 big-result"
               >
                 <img
