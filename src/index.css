@@ -99,7 +99,7 @@ button.btn-spoti-clear:hover {
 
 h3 > a,
 p > a {
-  color: var(--green);
+  color: var(--green-hover);
 }
 
 h3 > a:hover,

@@ -5,7 +5,7 @@ function MiniPlayerInfo({ currentTrack }) {
   return (
     <div className="col mini-player-info">
       <div className="row p-2">
-        <div className="col-2">
+        <div className="col-2-auto mr-auto ml-2">
           <Link to={`/album/${currentTrack.album.uri.slice(14)}`}>
             <img
               src={currentTrack.album.images[0].url}

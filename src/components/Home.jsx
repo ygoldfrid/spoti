@@ -53,7 +53,7 @@ function Home({ user, history }) {
       <BigResults
         title="New Releases in your country"
         type="album"
-        results={newReleases.slice(0, 18)}
+        results={newReleases.slice(0, 12)}
         history={history}
       />
     </Fragment>

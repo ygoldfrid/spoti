@@ -14,7 +14,13 @@ function LoginPage() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i className="fa fa-spotify fa-1x mr-2" aria-hidden="true"></i>
+            <img
+              heigth="25"
+              width="25"
+              alt="logo"
+              src="images/Spotify_Icon_RGB_Green.png"
+              className="mb-1 mr-1"
+            />
             Spotify API
           </a>
         </h3>

@@ -30,6 +30,9 @@ function Profile({ user, history }) {
             title="Play History"
             results={recentlyPlayed}
             history={history}
+            onClick={({ currentTarget }) => {
+              history.push(currentTarget.id);
+            }}
           />
         </Fragment>
       )}

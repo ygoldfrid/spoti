@@ -22,18 +22,20 @@ function BigResults({ title, type, results, history }) {
                 onClick={({ currentTarget }) => {
                   history.push(currentTarget.id);
                 }}
-                className="col-2 big-result py-3"
+                className="col-6 col-sm-4 col-md-3 col-lg-2 big-result justify-content-center py-3"
               >
-                <img
-                  height="150"
-                  width="150"
-                  alt={result.name}
-                  src={
-                    result.images
-                      ? result.images[0].url
-                      : result.album.images[0].url
-                  }
-                />
+                <div className="row justify-content-center">
+                  <img
+                    height="150"
+                    width="150"
+                    alt={result.name}
+                    src={
+                      result.images
+                        ? result.images[0].url
+                        : result.album.images[0].url
+                    }
+                  />
+                </div>
                 <p className="text-center">{result.name}</p>
               </div>
             ))}
