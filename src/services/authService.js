@@ -9,6 +9,7 @@ const params = {
   redirect_uri: process.env.REACT_APP_REDIRECT_URI,
   scope: [
     "streaming",
+    "user-top-read",
     "user-read-private",
     "user-read-email",
     "user-read-currently-playing",

@@ -48,7 +48,10 @@ function App() {
             path="/profile"
             render={(props) => <Profile {...props} user={user} />}
           />
-          <ProtectedRoute path="/home" component={Home} />
+          <ProtectedRoute
+            path="/home"
+            render={(props) => <Home {...props} user={user} />}
+          />
           <Route path="/not-found" component={NotFound} />
           <Redirect from="/" exact to="/home" />
           <Redirect to="/not-found" />

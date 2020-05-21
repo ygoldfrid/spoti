@@ -3,8 +3,10 @@ import http from "./httpService";
 const apiEndpoint = "https://api.spotify.com/v1/";
 const artistsEndpoint = apiEndpoint + "artists/";
 const albumsEndpoint = apiEndpoint + "albums/";
+const browseEndpoint = apiEndpoint + "browse/";
 
 const userEndpoint = apiEndpoint + "me/";
+const topEndpoint = userEndpoint + "top/";
 const followEndpoint = userEndpoint + "following";
 
 const playerEndpoint = userEndpoint + "player/";
@@ -146,6 +148,18 @@ function getRecentlyPlayed() {
   return http.get(`${playerEndpoint}recently-played`);
 }
 
+function getTopArtists() {
+  return http.get(`${topEndpoint}artists`);
+}
+
+function getTopTracks() {
+  return http.get(`${topEndpoint}tracks`);
+}
+
+function getNewReleases(country) {
+  return http.get(`${browseEndpoint}new-releases?country=${country}`);
+}
+
 export default {
   getCurrentUser,
   search,
@@ -171,4 +185,7 @@ export default {
   setPlayerVolume,
   seek,
   getRecentlyPlayed,
+  getTopArtists,
+  getTopTracks,
+  getNewReleases,
 };

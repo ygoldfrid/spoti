@@ -98,24 +98,29 @@ function ArtistPage({ match, history, location, user }) {
             id={artist.id}
             tracks={topTracks}
             location={location}
+            user={user}
           />
           <BigResults
             title="Albums"
+            type="album"
             results={albums.slice(0, 12)}
             history={history}
           />
           <BigResults
             title="Singles"
+            type="album"
             results={singles.slice(0, 6)}
             history={history}
           />
           <BigResults
             title="Compilations"
+            type="album"
             results={compilations.slice(0, 6)}
             history={history}
           />
           <BigResults
             title="Appeared On"
+            type="album"
             results={appears_on.slice(0, 6)}
             history={history}
           />

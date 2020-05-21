@@ -1,6 +1,12 @@
 import React, { Fragment } from "react";
 
-function BigResults({ title, results, history }) {
+function BigResults({ title, type, results, history }) {
+  const getResultId = (result) => {
+    if (type === "artist") return `/artist/${result.id}`;
+    if (type === "album") return `/album/${result.id}`;
+    if (type === "track") return `/album/${result.album.id}?track=${result.id}`;
+  };
+
   return (
     <Fragment>
       {((title === "Albums" && results.length > 0) || results.length > 2) && (
@@ -12,8 +18,9 @@ function BigResults({ title, results, history }) {
             {results.map((result) => (
               <div
                 key={result.id}
-                onClick={() => {
-                  history.push(`/album/${result.id}`);
+                id={getResultId(result)}
+                onClick={({ currentTarget }) => {
+                  history.push(currentTarget.id);
                 }}
                 className="col-2 big-result py-3"
               >
@@ -21,7 +28,11 @@ function BigResults({ title, results, history }) {
                   height="150"
                   width="150"
                   alt={result.name}
-                  src={result.images[0].url}
+                  src={
+                    result.images
+                      ? result.images[0].url
+                      : result.album.images[0].url
+                  }
                 />
                 <p className="text-center">{result.name}</p>
               </div>

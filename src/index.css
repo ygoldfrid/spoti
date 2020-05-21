@@ -61,6 +61,10 @@ div > h6 {
   background-color: var(--navbar-black);
 }
 
+.form-control {
+  margin-bottom: 30px;
+}
+
 /* BUTTONS */
 button.btn-spoti,
 a.btn-spoti {
