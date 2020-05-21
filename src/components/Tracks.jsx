@@ -9,18 +9,20 @@ class Tracks extends Component {
     isPlaying: false,
   };
 
-  addStateUpdateListener = () => {
-    document.addEventListener("stateUpdate", ({ detail }) => {
-      const currentTrack = detail.track_window.current_track.id;
-      const isPlaying = !detail.paused;
-      this.setState({ currentTrack, isPlaying });
-    });
+  stateUpdateListener = ({ detail }) => {
+    const currentTrack = detail.track_window.current_track.id;
+    const isPlaying = !detail.paused;
+    this.setState({ currentTrack, isPlaying });
   };
 
   async componentDidMount() {
-    this.addStateUpdateListener();
+    document.addEventListener("stateUpdate", this.stateUpdateListener);
     if (this.props.location.search) this.playQuery();
     else this.checkCurrentlyPlayingTrack();
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("stateUpdate", this.stateUpdateListener);
   }
 
   playQuery = async () => {

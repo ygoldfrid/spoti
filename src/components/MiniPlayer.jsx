@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
-import MiniPlayerInfo from "./MiniPlayerInfo";
-import MiniPlayerControls from "./MiniPlayerControls";
-import MiniPlayerVolume from "./MiniPlayerVolume";
 import MiniPlayerMobile from "./MiniPlayerMobile";
+import MiniPlayerDesktop from "./MiniPlayerDesktop";
 
 class MiniPlayer extends Component {
   state = {
@@ -13,19 +11,21 @@ class MiniPlayer extends Component {
     elapsed: 0,
   };
 
-  addStateUpdateListener = () => {
-    document.addEventListener("stateUpdate", ({ detail }) => {
-      const currentTrack = { ...detail.track_window.current_track };
-      const isPlaying = !detail.paused;
-      const shuffle = detail.shuffle;
-      const repeatMode = detail.repeat_mode;
-      const elapsed = detail.position;
-      this.setState({ currentTrack, isPlaying, shuffle, repeatMode, elapsed });
-    });
+  stateUpdateListener = ({ detail }) => {
+    const currentTrack = { ...detail.track_window.current_track };
+    const isPlaying = !detail.paused;
+    const shuffle = detail.shuffle;
+    const repeatMode = detail.repeat_mode;
+    const elapsed = detail.position;
+    this.setState({ currentTrack, isPlaying, shuffle, repeatMode, elapsed });
   };
 
-  async componentDidMount() {
-    this.addStateUpdateListener();
+  componentDidMount() {
+    document.addEventListener("stateUpdate", this.stateUpdateListener);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("stateUpdate", this.stateUpdateListener);
   }
 
   render() {
@@ -40,26 +40,20 @@ class MiniPlayer extends Component {
       <Fragment>
         {currentTrack.id && (
           <div className="mini-player p-2">
-            <div id="mini-player-desktop" className="row align-items-center">
-              <MiniPlayerInfo currentTrack={currentTrack} />
-              <MiniPlayerControls
-                currentTrack={currentTrack}
-                isPlaying={isPlaying}
-                shuffle={shuffle}
-                repeatMode={repeatMode}
-                elapsed={elapsed}
-              />
-              <MiniPlayerVolume />
-            </div>
-            <div
-              id="mini-player-mobile"
-              className="row justify-content-center align-items-center"
-            >
-              <MiniPlayerMobile
-                currentTrack={currentTrack}
-                isPlaying={isPlaying}
-              />
-            </div>
+            <MiniPlayerDesktop
+              currentTrack={currentTrack}
+              isPlaying={isPlaying}
+              shuffle={shuffle}
+              repeatMode={repeatMode}
+              elapsed={elapsed}
+            />
+            <MiniPlayerMobile
+              currentTrack={currentTrack}
+              isPlaying={isPlaying}
+              shuffle={shuffle}
+              repeatMode={repeatMode}
+              elapsed={elapsed}
+            />
           </div>
         )}
       </Fragment>

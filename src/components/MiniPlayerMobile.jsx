@@ -1,8 +1,16 @@
-import React, { Fragment } from "react";
+import React from "react";
+import { withRouter } from "react-router-dom";
 import spoti from "../services/spotiService";
 
-function MiniPlayerMobile({ currentTrack, isPlaying }) {
-  const handleClick = async () => {
+function MiniPlayerMobile({
+  currentTrack,
+  isPlaying,
+  shuffle,
+  repeatMode,
+  elapsed,
+  history,
+}) {
+  const handleClickPlay = async () => {
     try {
       if (isPlaying) await spoti.pauseTrack();
       else await spoti.resumePlayback();
@@ -10,12 +18,26 @@ function MiniPlayerMobile({ currentTrack, isPlaying }) {
       console.log(ex);
     }
   };
+  const handleClick = () => {
+    history.push(`/track/${currentTrack.id}`, {
+      currentTrack: currentTrack,
+      isPlaying: isPlaying,
+      shuffle: shuffle,
+      repeatMode: repeatMode,
+      elapsed: elapsed,
+      duration: currentTrack.duration_ms,
+    });
+  };
+
   const getPlayClasses = () => {
     return isPlaying ? "fa fa-pause fa-1x" : "fa fa-play fa-1x";
   };
   return (
-    <Fragment>
-      <div id="mobile-text-container" className="col-2">
+    <div
+      id="mini-player-mobile"
+      className="row justify-content-center align-items-center"
+    >
+      <div id="mobile-image-container" className="col-2" onClick={handleClick}>
         <div className="row justify-content-center">
           <img
             src={currentTrack.album.images[0].url}
@@ -25,7 +47,7 @@ function MiniPlayerMobile({ currentTrack, isPlaying }) {
           />
         </div>
       </div>
-      <div id="mobile-text-container" className="col-8">
+      <div id="mobile-text-container" className="col-8" onClick={handleClick}>
         <p id="mobile-text">
           {currentTrack.name} &bull;{" "}
           <span id="artist-name">{currentTrack.artists[0].name}</span>
@@ -35,14 +57,14 @@ function MiniPlayerMobile({ currentTrack, isPlaying }) {
         <div className="row justify-content-center">
           <i
             id="play-or-pause"
-            onClick={handleClick}
+            onClick={handleClickPlay}
             className={getPlayClasses()}
             aria-hidden="true"
           />
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 }
 
-export default MiniPlayerMobile;
+export default withRouter(MiniPlayerMobile);

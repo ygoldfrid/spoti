@@ -3,15 +3,16 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/common/protectedRoute";
 import LoginPage from "./components/LoginPage";
-import Callback from "./components/Callback";
-import NavBar from "./components/NavBar";
 import Logout from "./components/Logout";
+import Callback from "./components/Callback";
+import NotFound from "./components/NotFound";
+import NavBar from "./components/NavBar";
+import Home from "./components/Home";
 import ArtistPage from "./components/ArtistPage";
 import AlbumPage from "./components/AlbumPage";
-import NotFound from "./components/NotFound";
 import Profile from "./components/Profile";
+import TrackPage from "./components/TrackPage";
 import MiniPlayer from "./components/MiniPlayer";
-import Home from "./components/Home";
 import auth from "./services/authService";
 import spoti from "./services/spotiService";
 import "react-toastify/dist/ReactToastify.css";
@@ -39,11 +40,12 @@ function App() {
           <Route path="/login" component={LoginPage} />
           <Route path="/logout" component={Logout} />
           <Route path="/callback" component={Callback} />
+          <ProtectedRoute path="/album/:id" component={AlbumPage} />
+          <ProtectedRoute path="/track/:id" component={TrackPage} />
           <ProtectedRoute
             path="/artist/:id"
             render={(props) => <ArtistPage {...props} user={user} />}
           />
-          <ProtectedRoute path="/album/:id" component={AlbumPage} />
           <ProtectedRoute
             path="/profile"
             render={(props) => <Profile {...props} user={user} />}

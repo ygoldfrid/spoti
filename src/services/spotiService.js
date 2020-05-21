@@ -3,6 +3,7 @@ import http from "./httpService";
 const apiEndpoint = "https://api.spotify.com/v1/";
 const artistsEndpoint = apiEndpoint + "artists/";
 const albumsEndpoint = apiEndpoint + "albums/";
+const tracksEndpoint = apiEndpoint + "tracks/";
 const browseEndpoint = apiEndpoint + "browse/";
 
 const userEndpoint = apiEndpoint + "me/";
@@ -48,6 +49,10 @@ function getAlbumById(albumId) {
 
 function getAlbumTracks(albumId) {
   return http.get(`${albumsEndpoint}${albumId}/tracks?limit=50`);
+}
+
+function getTrackById(trackId) {
+  return http.get(`${tracksEndpoint}${trackId}`);
 }
 
 function getUserFollowsArtist(artistId) {
@@ -168,6 +173,7 @@ export default {
   getArtistAlbums,
   getAlbumById,
   getAlbumTracks,
+  getTrackById,
   getUserFollowsArtist,
   followArtist,
   unfollowArtist,

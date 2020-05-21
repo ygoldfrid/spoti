@@ -21,7 +21,6 @@ function Home({ user, history }) {
 
         //Getting New Releases
         if (user) {
-          console.log(user);
           const { data: newReleases } = await spoti.getNewReleases(
             user.country
           );
