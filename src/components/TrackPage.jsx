@@ -138,51 +138,47 @@ class TrackPage extends Component {
   };
   getPlayClasses = () => {
     return this.state.isPlaying
-      ? "fa fa-pause fa-2x mx-3"
-      : "fa fa-play fa-2x mx-3";
+      ? "fa fa-pause fa-1x mx-3"
+      : "fa fa-play fa-1x mx-3";
   };
 
   getShuffleClasses = () => {
     return this.state.shuffle
-      ? "fa fa-random fa-2x mx-3 green"
-      : "fa fa-random fa-2x mx-3";
+      ? "fa fa-random fa-1x mx-3 green"
+      : "fa fa-random fa-1x mx-3";
   };
 
   getRepeatClasses = () => {
     const { repeatMode } = this.state;
-    if (repeatMode === 0) return "fa fa-refresh fa-2x mx-3";
-    if (repeatMode === 1) return "fa fa-refresh fa-2x mx-3 green";
-    if (repeatMode === 2) return "fa fa-retweet fa-2x mx-3 green";
+    if (repeatMode === 0) return "fa fa-refresh fa-1x mx-3";
+    if (repeatMode === 1) return "fa fa-refresh fa-1x mx-3 green";
+    if (repeatMode === 2) return "fa fa-retweet fa-1x mx-3 green";
   };
 
   render() {
     const { currentTrack, elapsed } = this.state;
     return (
       <div className="track-page">
-        <div className="row back"></div>
+        <div className="row back">
+          <i
+            id="back"
+            onClick={this.handleBackClick}
+            className="fa fa-arrow-left fa-1x m-3"
+            aria-hidden="true"
+          />
+        </div>
         {currentTrack.id && (
           <Fragment>
-            <div className="row justify-content-center m-3">
-              <div className="col-2">
-                <i
-                  id="back"
-                  onClick={this.handleBackClick}
-                  className="fa fa-arrow-left fa-2x m-3"
-                  aria-hidden="true"
-                />
-              </div>
-              <div className="col-8">
-                <img
-                  height="250"
-                  width="250"
-                  src={currentTrack.album.images[0].url}
-                  alt="album"
-                />
-              </div>
-              <div className="col-2" />
+            <div className="row justify-content-center mb-2">
+              <img
+                height="300"
+                width="300"
+                src={currentTrack.album.images[0].url}
+                alt="album"
+              />
             </div>
             <div className="row justify-content-center">
-              <h3 className="text-center">{currentTrack.name}</h3>
+              <h4 className="text-center">{currentTrack.name}</h4>
             </div>
             <div className="row justify-content-center">
               <h5 className="text-center">{currentTrack.artists[0].name}</h5>
@@ -199,7 +195,7 @@ class TrackPage extends Component {
           <i
             id="previous"
             onClick={this.handleClick}
-            className="fa fa-step-backward fa-2x mx-3"
+            className="fa fa-step-backward fa-1x mx-3"
             aria-hidden="true"
           />
           <i
@@ -211,7 +207,7 @@ class TrackPage extends Component {
           <i
             id="next"
             onClick={this.handleClick}
-            className="fa fa-step-forward fa-2x mx-3"
+            className="fa fa-step-forward fa-1x mx-3"
             aria-hidden="true"
           />
           <i

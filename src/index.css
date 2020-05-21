@@ -166,7 +166,8 @@ div.mini-player-text > div > h6 > a {
 }
 
 .mini-player-volume > div,
-.mini-player-controls > div {
+.mini-player-controls > div,
+.back {
   color: var(--mini-player-controls-on);
 }
 
