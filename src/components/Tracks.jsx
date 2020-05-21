@@ -118,7 +118,7 @@ class Tracks extends Component {
     const tracks = type === "artist" ? allTracks.slice(0, 5) : allTracks;
     return (
       <Fragment>
-        <div className="row">
+        <div className="row tracks-title">
           <h3>{this.props.title}</h3>
         </div>
         <div className="tracks" id="tracks">

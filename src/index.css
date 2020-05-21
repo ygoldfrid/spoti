@@ -104,8 +104,10 @@ p > a:hover {
 }
 
 /* RESULTS */
-.big-result {
+
+.big-result:hover {
   cursor: pointer;
+  background-color: var(--selected-grey);
 }
 
 .big-result > p {
@@ -113,21 +115,26 @@ p > a:hover {
   font-size: 14px;
 }
 
-div.small-results {
+.big-results-title,
+.small-results-title,
+.tracks-title {
+  border-bottom: solid 1px white;
+}
+
+.small-results {
   color: white;
   padding: 10px;
   margin-bottom: 10px;
 }
 
-div.small-result:hover,
-div.track:hover {
+.small-result:hover,
+.track:hover {
   cursor: pointer;
   background-color: var(--selected-grey);
 }
 
-div.small-result,
-div.track {
-  border-top: solid 1px white;
+.small-result,
+.track {
   align-items: center;
 }
 

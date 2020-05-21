@@ -1,7 +1,6 @@
-import React from "react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 
-function SmallResults({ type, title, results, history }) {
+function SmallResults({ type, title, results, onClick }) {
   const getResultId = (result) => {
     if (type === "track" || type === "profile") {
       return `/album/${result.album.id}?track=${result.id}`;
@@ -49,9 +48,7 @@ function SmallResults({ type, title, results, history }) {
                 key={type === "profile" ? playedOn : result.id}
                 id={getResultId(result)}
                 className="small-result row"
-                onClick={({ currentTarget }) => {
-                  history.push(currentTarget.id);
-                }}
+                onClick={onClick}
               >
                 <img
                   className="m-2"

@@ -13,8 +13,8 @@ function NavBar({ user }) {
         <Nav className="mr-auto">
           {user && (
             <Fragment>
-              <NavLink className="nav-item nav-link" to="/search">
-                Search
+              <NavLink className="nav-item nav-link" to="/home">
+                Home
               </NavLink>
               <NavLink className="nav-item nav-link" to="/profile">
                 {user.display_name}

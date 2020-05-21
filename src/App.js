@@ -6,12 +6,12 @@ import LoginPage from "./components/LoginPage";
 import Callback from "./components/Callback";
 import NavBar from "./components/NavBar";
 import Logout from "./components/Logout";
-import Search from "./components/Search";
 import ArtistPage from "./components/ArtistPage";
 import AlbumPage from "./components/AlbumPage";
 import NotFound from "./components/NotFound";
 import Profile from "./components/Profile";
 import MiniPlayer from "./components/MiniPlayer";
+import Home from "./components/Home";
 import auth from "./services/authService";
 import spoti from "./services/spotiService";
 import "react-toastify/dist/ReactToastify.css";
@@ -48,9 +48,9 @@ function App() {
             path="/profile"
             render={(props) => <Profile {...props} user={user} />}
           />
-          <ProtectedRoute path="/search" component={Search} />
+          <ProtectedRoute path="/home" component={Home} />
           <Route path="/not-found" component={NotFound} />
-          <Redirect from="/" exact to="/search" />
+          <Redirect from="/" exact to="/home" />
           <Redirect to="/not-found" />
         </Switch>
       </main>

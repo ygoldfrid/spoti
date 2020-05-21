@@ -7,6 +7,7 @@ function Search({ history }) {
   const [artists, setArtists] = useState([]);
   const [albums, setAlbums] = useState([]);
   const [tracks, setTracks] = useState([]);
+  const [show, setShow] = useState(true);
 
   const handleSearch = (e) => {
     const searchQuery = e.currentTarget.value;
@@ -17,6 +18,7 @@ function Search({ history }) {
       setAlbums([]);
       setTracks([]);
     }
+    setShow(true);
   };
 
   const populateData = async (searchQuery) => {
@@ -28,6 +30,12 @@ function Search({ history }) {
     setTracks(tracksData.tracks.items);
   };
 
+  const handleSelection = ({ currentTarget }) => {
+    history.push(currentTarget.id);
+    document.getElementsByTagName("input")[0].value = "";
+    setShow(false);
+  };
+
   return (
     <Fragment>
       <Form.Control
@@ -35,25 +43,28 @@ function Search({ history }) {
         onChange={handleSearch}
         placeholder="Search for artists or albums..."
       />
-      {(artists.length !== 0 || albums.length !== 0) && (
+      {(artists.length !== 0 || albums.length !== 0) && show && (
         <div className="results">
           <SmallResults
             type="artist"
             title="Artists"
             results={artists}
             history={history}
+            onClick={handleSelection}
           />
           <SmallResults
             type="album"
             title="Albums"
             results={albums}
             history={history}
+            onClick={handleSelection}
           />
           <SmallResults
             type="track"
             title="Songs"
             results={tracks}
             history={history}
+            onClick={handleSelection}
           />
         </div>
       )}

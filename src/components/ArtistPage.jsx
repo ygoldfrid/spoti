@@ -1,138 +1,128 @@
-import React, { Fragment, Component } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import spoti from "../services/spotiService";
 import Tracks from "./Tracks";
 import BigResults from "./common/BigResults";
 import MainPage from "./common/MainPage";
-import spoti from "../services/spotiService";
+import Search from "./Search";
 
-class ArtistPage extends Component {
-  state = {
-    artist: null,
-    topTracks: [],
-    follows: [false],
-    albums: [],
-    singles: [],
-    compilations: [],
-    appears_on: [],
-  };
+function ArtistPage({ match, history, location, user }) {
+  const [artist, setArtist] = useState(null);
+  const [topTracks, setTopTracks] = useState([]);
+  const [follows, setFollows] = useState([false]);
+  const [albums, setAlbums] = useState([]);
+  const [singles, setSingles] = useState([]);
+  const [compilations, setCompilations] = useState([]);
+  const [appears_on, setAppears_on] = useState([]);
 
-  componentDidMount = async () => {
-    const { id } = this.props.match.params;
-    this.getArtist(id);
-    this.getFollowingInfo(id);
-    if (this.props.user) this.getAll(id);
-  };
-
-  componentDidUpdate(prevProps) {
-    const { id } = this.props.match.params;
-    if (prevProps.user !== this.props.user) this.getAll(id);
-  }
-
-  getAll = (id) => {
-    this.getTopTracks(id);
-    this.getAlbums(id, "album");
-    this.getAlbums(id, "single");
-    this.getAlbums(id, "compilation");
-    this.getAlbums(id, "appears_on");
-  };
-
-  getArtist = async (id) => {
-    try {
-      const { data: artist } = await spoti.getArtistById(id);
-      this.setState({ artist });
-    } catch (ex) {
-      if (ex.response && ex.response.status === 400)
-        this.props.history.replace("/not-found");
+  useEffect(() => {
+    async function getData() {
+      try {
+        const id = match.params.id;
+        //Getting Artist
+        const { data: artist } = await spoti.getArtistById(id);
+        setArtist(artist);
+        //Getting Following Info
+        const { data: follows } = await spoti.getUserFollowsArtist(id);
+        setFollows(follows[0]);
+        //Getting Top Tracks
+        if (user) {
+          const { data: topTracks } = await spoti.getArtistTopTracks(
+            id,
+            user.country
+          );
+          setTopTracks(topTracks.tracks);
+          //Getting Albums
+          const { data: albums } = await spoti.getArtistAlbums(
+            id,
+            "album",
+            user.country
+          );
+          setAlbums(albums.items);
+          //Getting Singles
+          const { data: singles } = await spoti.getArtistAlbums(
+            id,
+            "single",
+            user.country
+          );
+          setSingles(singles.items);
+          //Getting Compilations
+          const { data: compilations } = await spoti.getArtistAlbums(
+            id,
+            "compilation",
+            user.country
+          );
+          setCompilations(compilations.items);
+          //Getting Appears On
+          const { data: appearsOn } = await spoti.getArtistAlbums(
+            id,
+            "appears_on",
+            user.country
+          );
+          setAppears_on(appearsOn.items);
+        }
+      } catch (ex) {
+        if (ex.response && ex.response.status === 400)
+          history.replace("/not-found");
+      }
     }
-  };
+    getData();
+  }, [match.params.id, history, user]);
 
-  getFollowingInfo = async (id) => {
-    const { data: follows } = await spoti.getUserFollowsArtist(id);
-    this.setState({ follows: follows[0] });
-  };
-
-  getTopTracks = async (id) => {
-    const { data: topTracks } = await spoti.getArtistTopTracks(
-      id,
-      this.props.user.country
-    );
-    this.setState({ topTracks: topTracks.tracks });
-  };
-
-  getAlbums = async (id, group) => {
-    const { data: results } = await spoti.getArtistAlbums(
-      id,
-      group,
-      this.props.user.country
-    );
-    if (group === "album") this.setState({ albums: results.items });
-    if (group === "single") this.setState({ singles: results.items });
-    if (group === "compilation") this.setState({ compilations: results.items });
-    if (group === "appears_on") this.setState({ appears_on: results.items });
-  };
-
-  handleFollow = async () => {
+  const handleFollow = async () => {
     try {
-      const { artist, follows } = this.state;
+      const id = match.params.id;
       if (follows) {
-        await spoti.unfollowArtist(artist.id);
-        this.setState({ follows: false });
+        await spoti.unfollowArtist(id);
+        setFollows(false);
       } else {
-        await spoti.followArtist(artist.id);
-        this.setState({ follows: true });
+        await spoti.followArtist(id);
+        setFollows(true);
       }
     } catch (ex) {}
   };
 
-  render() {
-    const {
-      artist,
-      topTracks,
-      follows,
-      albums: allAlbums,
-      singles: allSingles,
-      compilations: allCompilations,
-      appears_on: allAppears,
-    } = this.state;
-
-    const albums = allAlbums.slice(0, 12);
-    const singles = allSingles.slice(0, 6);
-    const compilations = allCompilations.slice(0, 6);
-    const appears_on = allAppears.slice(0, 6);
-
-    return (
-      <Fragment>
-        {artist && (
-          <Fragment>
-            <MainPage
-              type="artist"
-              object={artist}
-              onFollowClick={this.handleFollow}
-              follows={follows}
-            />
-            <Tracks
-              title="Popular"
-              type="artist"
-              id={artist.id}
-              tracks={topTracks}
-              {...this.props}
-            />
-            <BigResults title="Albums" results={albums} {...this.props} />
-            <BigResults title="Singles" results={singles} {...this.props} />
-            <BigResults
-              title="Compilations"
-              results={compilations}
-              {...this.props}
-            />
-            <BigResults
-              title="Appeared On"
-              results={appears_on}
-              {...this.props}
-            />
-          </Fragment>
-        )}
-      </Fragment>
-    );
-  }
+  return (
+    <Fragment>
+      {artist && (
+        <Fragment>
+          <Search history={history} />
+          <MainPage
+            type="artist"
+            object={artist}
+            onFollowClick={handleFollow}
+            follows={follows}
+          />
+          <Tracks
+            title="Popular"
+            type="artist"
+            id={artist.id}
+            tracks={topTracks}
+            location={location}
+          />
+          <BigResults
+            title="Albums"
+            results={albums.slice(0, 12)}
+            history={history}
+          />
+          <BigResults
+            title="Singles"
+            results={singles.slice(0, 6)}
+            history={history}
+          />
+          <BigResults
+            title="Compilations"
+            results={compilations.slice(0, 6)}
+            history={history}
+          />
+          <BigResults
+            title="Appeared On"
+            results={appears_on.slice(0, 6)}
+            history={history}
+          />
+        </Fragment>
+      )}
+    </Fragment>
+  );
 }
 
 export default ArtistPage;

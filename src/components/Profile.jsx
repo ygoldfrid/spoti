@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import MainPage from "./common/MainPage";
 import spoti from "../services/spotiService";
 import SmallResults from "./common/SmallResults";
+import Search from "./Search";
 
 function Profile({ user, history }) {
   const [recentlyPlayed, setRecentlyPlayed] = useState([]);
@@ -22,6 +23,7 @@ function Profile({ user, history }) {
     <div className="user-profile p-2 mb-4">
       {user && (
         <Fragment>
+          <Search history={history} />
           <MainPage type="profile" object={user} />
           <SmallResults
             type="profile"

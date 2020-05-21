@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Tracks from "./Tracks";
+import Search from "./Search";
 import MainPage from "./common/MainPage";
 import spoti from "../services/spotiService";
 
@@ -26,6 +27,7 @@ function AlbumPage({ match, history, location }) {
     <Fragment>
       {album && (
         <Fragment>
+          <Search history={history} />
           <MainPage type="album" object={album} />
           <Tracks
             title="Tracks"

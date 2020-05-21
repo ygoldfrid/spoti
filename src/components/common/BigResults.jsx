@@ -3,9 +3,9 @@ import React, { Fragment } from "react";
 function BigResults({ title, results, history }) {
   return (
     <Fragment>
-      {(title === "Albums" || results.length > 2) && (
+      {((title === "Albums" && results.length > 0) || results.length > 2) && (
         <Fragment>
-          <div className="row my-3">
+          <div className="row big-results-title my-3">
             <h3>{title}</h3>
           </div>
           <div className="row big-results">
@@ -15,7 +15,7 @@ function BigResults({ title, results, history }) {
                 onClick={() => {
                   history.push(`/album/${result.id}`);
                 }}
-                className="col-2 big-result"
+                className="col-2 big-result py-3"
               >
                 <img
                   height="150"
@@ -23,7 +23,7 @@ function BigResults({ title, results, history }) {
                   alt={result.name}
                   src={result.images[0].url}
                 />
-                <p className="text-center mt-2 mb-5">{result.name}</p>
+                <p className="text-center">{result.name}</p>
               </div>
             ))}
           </div>
