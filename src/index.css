@@ -188,3 +188,39 @@ div.mini-player-text > div > h5 > a {
 #volume-bar {
   cursor: pointer;
 }
+
+/* MOBILE */
+@media only screen and (max-width: 600px) {
+  #mini-player-desktop {
+    display: none;
+  }
+}
+@media only screen and (min-width: 600px) {
+  #mini-player-mobile {
+    display: none;
+  }
+}
+
+div#mobile-text-container {
+  overflow: hidden;
+}
+
+p#mobile-text > span {
+  color: var(--under-grey);
+}
+
+p#mobile-text {
+  font-family: lineto-circular-pro-bold;
+  font-size: 15px;
+  white-space: nowrap;
+  animation: marquee 16s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

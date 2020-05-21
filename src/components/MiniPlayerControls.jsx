@@ -78,7 +78,7 @@ class MiniPlayerControls extends Component {
       const targetId = currentTarget.id;
       const { isPlaying, shuffle, repeatMode } = this.props;
       if (targetId === "play-or-pause")
-        if (isPlaying) await spoti.pauseTrack(targetId);
+        if (isPlaying) await spoti.pauseTrack();
         else await spoti.resumePlayback();
       if (targetId === "next") await spoti.skipToNextTrack();
       if (targetId === "previous") await spoti.skipToPreviousTrack();

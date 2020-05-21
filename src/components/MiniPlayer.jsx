@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import MiniPlayerInfo from "./MiniPlayerInfo";
 import MiniPlayerControls from "./MiniPlayerControls";
 import MiniPlayerVolume from "./MiniPlayerVolume";
+import MiniPlayerMobile from "./MiniPlayerMobile";
 
 class MiniPlayer extends Component {
   state = {
@@ -39,7 +40,7 @@ class MiniPlayer extends Component {
       <Fragment>
         {currentTrack.id && (
           <div className="mini-player p-2">
-            <div className="row align-items-center">
+            <div id="mini-player-desktop" className="row align-items-center">
               <MiniPlayerInfo currentTrack={currentTrack} />
               <MiniPlayerControls
                 currentTrack={currentTrack}
@@ -49,6 +50,15 @@ class MiniPlayer extends Component {
                 elapsed={elapsed}
               />
               <MiniPlayerVolume />
+            </div>
+            <div
+              id="mini-player-mobile"
+              className="row justify-content-center align-items-center"
+            >
+              <MiniPlayerMobile
+                currentTrack={currentTrack}
+                isPlaying={isPlaying}
+              />
             </div>
           </div>
         )}
