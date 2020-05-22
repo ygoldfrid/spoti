@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import MiniPlayerMobile from "./MiniPlayerMobile";
 import MiniPlayerDesktop from "./MiniPlayerDesktop";
+import Media from "react-media";
 
 class MiniPlayer extends Component {
   state = {
@@ -40,20 +41,35 @@ class MiniPlayer extends Component {
       <Fragment>
         {currentTrack.id && (
           <div className="mini-player p-2" id="mini-player">
-            <MiniPlayerDesktop
-              currentTrack={currentTrack}
-              isPlaying={isPlaying}
-              shuffle={shuffle}
-              repeatMode={repeatMode}
-              elapsed={elapsed}
-            />
-            <MiniPlayerMobile
-              currentTrack={currentTrack}
-              isPlaying={isPlaying}
-              shuffle={shuffle}
-              repeatMode={repeatMode}
-              elapsed={elapsed}
-            />
+            <Media
+              queries={{
+                mobile: "(max-width: 599px)",
+                desktop: "(min-width: 600px)",
+              }}
+            >
+              {(matches) => (
+                <Fragment>
+                  {matches.mobile && (
+                    <MiniPlayerMobile
+                      currentTrack={currentTrack}
+                      isPlaying={isPlaying}
+                      shuffle={shuffle}
+                      repeatMode={repeatMode}
+                      elapsed={elapsed}
+                    />
+                  )}
+                  {matches.desktop && (
+                    <MiniPlayerDesktop
+                      currentTrack={currentTrack}
+                      isPlaying={isPlaying}
+                      shuffle={shuffle}
+                      repeatMode={repeatMode}
+                      elapsed={elapsed}
+                    />
+                  )}
+                </Fragment>
+              )}
+            </Media>
           </div>
         )}
       </Fragment>
