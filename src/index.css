@@ -17,7 +17,7 @@
   src: url(./fonts/lineto-circular-black.ttf);
 }
 
-/* TEXT */
+/* PRINCIPAL */
 h1,
 h2,
 h3 {
@@ -66,6 +66,17 @@ div > h6 {
 }
 
 /* BUTTONS */
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  margin-right: 5px;
+}
+.navbar-link:hover {
+  color: white;
+  text-decoration: none;
+}
+
 button.btn-spoti,
 a.btn-spoti {
   font-family: lineto-circular-pro-bold;

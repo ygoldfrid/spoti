@@ -21,9 +21,10 @@ class MiniPlayerControls extends Component {
     if (prevProps.elapsed !== elapsed) {
       this.setState({ elapsed });
     }
-    if (prevProps.isPlaying !== isPlaying)
+    if (prevProps.isPlaying !== isPlaying) {
       if (!isPlaying) this.pauseTimer();
       else this.startTimer();
+    }
   }
 
   timer = () => {

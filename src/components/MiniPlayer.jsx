@@ -39,7 +39,7 @@ class MiniPlayer extends Component {
     return (
       <Fragment>
         {currentTrack.id && (
-          <div className="mini-player p-2">
+          <div className="mini-player p-2" id="mini-player">
             <MiniPlayerDesktop
               currentTrack={currentTrack}
               isPlaying={isPlaying}

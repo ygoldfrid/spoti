@@ -17,8 +17,8 @@ class Tracks extends Component {
 
   async componentDidMount() {
     document.addEventListener("stateUpdate", this.stateUpdateListener);
-    if (this.props.location.search) this.playQuery();
-    else this.checkCurrentlyPlayingTrack();
+    await this.checkCurrentlyPlayingTrack();
+    if (this.props.location.search && !this.state.isPlaying) this.playQuery();
   }
 
   componentWillUnmount() {

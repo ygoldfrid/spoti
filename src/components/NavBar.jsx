@@ -1,13 +1,14 @@
 import React, { Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter, Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 
 function NavBar({ user }) {
   return (
     <Navbar variant="dark" expand="lg" className="navbar-spoti mb-3">
-      <Navbar.Brand href="/">
-        <i className="fa fa-spotify fa-1x mr-2" aria-hidden="true"></i>Spoti App
-      </Navbar.Brand>
+      <Link className="navbar-link" to="/">
+        <i className="fa fa-spotify fa-1x mr-2" aria-hidden="true" />
+        Spoti App
+      </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
         <Nav className="mr-auto">
@@ -30,4 +31,4 @@ function NavBar({ user }) {
   );
 }
 
-export default NavBar;
+export default withRouter(NavBar);
