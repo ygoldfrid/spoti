@@ -25,7 +25,6 @@ class MiniPlayerControls extends Component {
   componentDidUpdate(prevProps) {
     const { elapsed, isPlaying } = this.props;
     if (prevProps.elapsed !== elapsed) {
-      console.log("in");
       this.setState({ elapsed });
     }
     if (prevProps.isPlaying !== isPlaying) {
@@ -88,7 +87,7 @@ class MiniPlayerControls extends Component {
     const { repeatMode } = this.props;
     if (repeatMode === 0) return "fa fa-refresh fa-1x mx-3";
     if (repeatMode === 1) return "fa fa-refresh fa-1x mx-3 green";
-    if (repeatMode === 2) return "fa fa-retweet fa-1x mx-3 green";
+    if (repeatMode === 2) return "fa fa-repeat fa-1x mx-3 green";
   };
 
   render() {

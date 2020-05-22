@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import "font-awesome/css/font-awesome.css";
-import "bootstrap/dist/css/bootstrap.css";
+import * as serviceWorker from "./serviceWorker";
 import spotiPlayer from "./services/spotiPlayerService";
+import App from "./App";
+import "bootstrap/dist/css/bootstrap.css";
+import "font-awesome/css/font-awesome.css";
+import "./index.css";
 
 document.title = process.env.REACT_APP_NAME;
 

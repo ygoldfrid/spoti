@@ -82,7 +82,7 @@ class TrackPage extends Component {
           <i
             id="back"
             onClick={this.handleBackClick}
-            className="fa fa-arrow-left fa-1x m-3"
+            className="fa fa-chevron-left fa-1x m-3"
             aria-hidden="true"
           />
         </div>
