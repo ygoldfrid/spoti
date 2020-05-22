@@ -1,24 +1,31 @@
 import React, { Component } from "react";
 import spoti from "../services/spotiService";
 import { msToDuration } from "./../utils/converter";
+import ProgressBar from "./../utils/progressBar";
 
 class MiniPlayerControls extends Component {
   state = {
-    canvas: undefined,
-    context: undefined,
     elapsed: 0,
   };
 
   interval = undefined;
+  timeBar = new ProgressBar(200);
 
   componentDidMount = () => {
-    this.setProgressBar();
+    const { elapsed } = this.props;
+    this.timeBar.renderBar(
+      "time-bar",
+      elapsed,
+      this.props.currentTrack.duration_ms
+    );
     this.startTimer();
+    this.setState({ elapsed });
   };
 
   componentDidUpdate(prevProps) {
     const { elapsed, isPlaying } = this.props;
     if (prevProps.elapsed !== elapsed) {
+      console.log("in");
       this.setState({ elapsed });
     }
     if (prevProps.isPlaying !== isPlaying) {
@@ -28,9 +35,9 @@ class MiniPlayerControls extends Component {
   }
 
   timer = () => {
-    const { canvas, context, elapsed } = this.state;
+    const { elapsed } = this.state;
     this.setState({ elapsed: elapsed + 1000 });
-    this.drawProgress(canvas, context, elapsed);
+    this.timeBar.drawProgress(elapsed, this.props.currentTrack.duration_ms);
   };
 
   startTimer = () => {
@@ -41,40 +48,15 @@ class MiniPlayerControls extends Component {
     clearInterval(this.interval);
   };
 
-  setProgressBar = () => {
-    const canvas = document.createElement("CANVAS");
-    const context = canvas.getContext("2d");
-    const timeBar = document.getElementById("time-bar");
-    canvas.width = 200;
-    canvas.height = 5;
-    timeBar.appendChild(canvas);
-    this.drawProgress(canvas, context);
-    this.setState({ canvas, context });
-  };
-
-  drawProgress = (canvas, context, seek = 0) => {
-    const drawSeek =
-      (seek * canvas.width) / this.props.currentTrack.duration_ms;
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = "#535353";
-    context.fillRect(0, 0, canvas.width, canvas.height);
-    context.fillStyle = "#b3b3b3";
-    context.fillRect(0, 0, drawSeek, canvas.height);
-  };
-
-  handleClickBar = async ({ clientX }) => {
-    const { context, canvas } = this.state;
-    const timeBar = document.getElementById("time-bar");
-    const timePosition = timeBar.getBoundingClientRect().left;
-    const drawSeek = clientX - timePosition;
-    const seek = Math.floor(
-      (drawSeek * this.props.currentTrack.duration_ms) / this.state.canvas.width
+  handleClickBar = ({ clientX }) => {
+    this.timeBar.handleClick(
+      clientX,
+      spoti.seek,
+      this.props.currentTrack.duration_ms
     );
-    await spoti.seek(seek);
-    this.drawProgress(canvas, context, seek);
   };
 
-  handleClick = async ({ currentTarget }) => {
+  handleClickIcons = async ({ currentTarget }) => {
     try {
       const targetId = currentTarget.id;
       const { isPlaying, shuffle, repeatMode } = this.props;
@@ -115,31 +97,31 @@ class MiniPlayerControls extends Component {
         <div className="row mini-player-buttons justify-content-center mb-3">
           <i
             id="shuffle"
-            onClick={this.handleClick}
+            onClick={this.handleClickIcons}
             className={this.getShuffleClasses()}
             aria-hidden="true"
           />
           <i
             id="previous"
-            onClick={this.handleClick}
+            onClick={this.handleClickIcons}
             className="fa fa-step-backward fa-1x mx-3"
             aria-hidden="true"
           />
           <i
             id="play-or-pause"
-            onClick={this.handleClick}
+            onClick={this.handleClickIcons}
             className={this.getPlayClasses()}
             aria-hidden="true"
           />
           <i
             id="next"
-            onClick={this.handleClick}
+            onClick={this.handleClickIcons}
             className="fa fa-step-forward fa-1x mx-3"
             aria-hidden="true"
           />
           <i
             id="repeat"
-            onClick={this.handleClick}
+            onClick={this.handleClickIcons}
             className={this.getRepeatClasses()}
             aria-hidden="true"
           />
