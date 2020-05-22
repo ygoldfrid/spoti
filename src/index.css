@@ -118,7 +118,7 @@ p > a:hover {
   color: var(--green-hover);
 }
 
-div.track-page > div > h5 {
+div.track-info > div > h5 {
   color: var(--under-grey);
 }
 
@@ -180,6 +180,10 @@ div.mini-player-text > div > h6 > a {
 .mini-player-controls > div,
 .back {
   color: var(--mini-player-controls-on);
+}
+
+.back:hover {
+  color: white;
 }
 
 .mini-player-buttons > i:hover {

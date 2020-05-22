@@ -82,26 +82,26 @@ class TrackPage extends Component {
           <i
             id="back"
             onClick={this.handleBackClick}
-            className="fa fa-chevron-left fa-1x m-3"
+            className="fa fa-chevron-down fa-2x m-3"
             aria-hidden="true"
           />
         </div>
         {currentTrack.id && (
           <Fragment>
-            <div className="track-info mb-3">
-              <div className="row justify-content-center mb-2">
-                <img
-                  height="300"
-                  width="300"
-                  src={currentTrack.album.images[0].url}
-                  alt="album"
-                />
+            <div className="row justify-content-center mb-2">
+              <img
+                height="250"
+                width="250"
+                src={currentTrack.album.images[0].url}
+                alt="album"
+              />
+            </div>
+            <div className="track-info mb-3 ml-1">
+              <div className="row">
+                <h4>{currentTrack.name}</h4>
               </div>
-              <div className="row justify-content-center">
-                <h4 className="text-center">{currentTrack.name}</h4>
-              </div>
-              <div className="row justify-content-center">
-                <h5 className="text-center">{currentTrack.artists[0].name}</h5>
+              <div className="row">
+                <h5>{currentTrack.artists[0].name}</h5>
               </div>
             </div>
             <MiniPlayerControls
@@ -110,6 +110,7 @@ class TrackPage extends Component {
               shuffle={shuffle}
               repeatMode={repeatMode}
               elapsed={elapsed}
+              size="large"
             />
           </Fragment>
         )}

@@ -72,9 +72,22 @@ class MiniPlayerControls extends Component {
   };
 
   getPlayClasses = () => {
-    return this.props.isPlaying
-      ? "fa fa-pause fa-1x mx-3"
-      : "fa fa-play fa-1x mx-3";
+    const { size, isPlaying } = this.props;
+    let classes = size === "large" ? "fa-2x mx-3" : "fa-1x mx-3";
+    classes += isPlaying ? " fa fa-pause" : " fa fa-play";
+    return classes;
+  };
+
+  getPreviousClasses = () => {
+    return this.props.size === "large"
+      ? "fa fa-step-backward fa-2x mx-3"
+      : "fa fa-step-backward fa-1x mx-3";
+  };
+
+  getNextClasses = () => {
+    return this.props.size === "large"
+      ? "fa fa-step-forward fa-2x mx-3"
+      : "fa fa-step-forward fa-1x mx-3";
   };
 
   getShuffleClasses = () => {
@@ -93,7 +106,7 @@ class MiniPlayerControls extends Component {
   render() {
     return (
       <div className="col mini-player-controls d-flex flex-column justify-content-center">
-        <div className="row mini-player-buttons justify-content-center mb-3">
+        <div className="row mini-player-buttons justify-content-center align-items-center mb-3">
           <i
             id="shuffle"
             onClick={this.handleClickIcons}
@@ -103,7 +116,7 @@ class MiniPlayerControls extends Component {
           <i
             id="previous"
             onClick={this.handleClickIcons}
-            className="fa fa-step-backward fa-1x mx-3"
+            className={this.getPreviousClasses()}
             aria-hidden="true"
           />
           <i
@@ -115,7 +128,7 @@ class MiniPlayerControls extends Component {
           <i
             id="next"
             onClick={this.handleClickIcons}
-            className="fa fa-step-forward fa-1x mx-3"
+            className={this.getNextClasses()}
             aria-hidden="true"
           />
           <i
