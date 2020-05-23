@@ -77,7 +77,7 @@ class TrackPage extends Component {
       repeatMode,
     } = this.state;
     return (
-      <div className="track-page p-4">
+      <div className="track-page px-4">
         <div className="row back">
           <i
             id="back"

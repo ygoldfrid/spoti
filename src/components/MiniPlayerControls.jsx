@@ -74,7 +74,7 @@ class MiniPlayerControls extends Component {
   getPlayClasses = () => {
     const { size, isPlaying } = this.props;
     let classes = "fa";
-    classes += size === "large" ? " fa-2x mx-2" : " fa-1x mx-3";
+    classes += size === "large" ? " fa-2x mx-3" : " fa-1x mx-3";
     classes += isPlaying ? " fa-pause" : " fa-play";
     return classes;
   };
@@ -82,7 +82,7 @@ class MiniPlayerControls extends Component {
   getShuffleClasses = () => {
     const { size, shuffle } = this.props;
     let classes = "fa fa-random";
-    classes += size === "large" ? " fa-2x mr-2" : " fa-1x mr-3";
+    classes += size === "large" ? " fa-2x mr-3" : " fa-1x mr-3";
     classes += shuffle ? " green" : "";
     return classes;
   };
@@ -90,14 +90,14 @@ class MiniPlayerControls extends Component {
   getSkipClasses = (code) => {
     const { size } = this.props;
     let classes = "fa " + code;
-    classes += size === "large" ? " fa-2x mx-2" : " fa-1x mx-3";
+    classes += size === "large" ? " fa-2x mx-3" : " fa-1x mx-3";
     return classes;
   };
 
   getRepeatClasses = () => {
     const { size, repeatMode } = this.props;
     let classes = "fa";
-    classes += size === "large" ? " fa-2x ml-2" : " fa-1x ml-3";
+    classes += size === "large" ? " fa-2x ml-3" : " fa-1x ml-3";
     if (repeatMode === 0) classes += " fa-refresh";
     if (repeatMode === 1) classes += " fa-refresh green";
     if (repeatMode === 2) classes += " fa-repeat green";
