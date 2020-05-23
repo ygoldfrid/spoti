@@ -9,7 +9,7 @@ class MiniPlayerControls extends Component {
   };
 
   interval = undefined;
-  timeBar = new ProgressBar(300);
+  timeBar = new ProgressBar(250);
 
   componentDidMount = () => {
     const { elapsed } = this.props;
@@ -73,31 +73,31 @@ class MiniPlayerControls extends Component {
 
   getPlayClasses = () => {
     const { size, isPlaying } = this.props;
-    let classes = "fa mx-3";
-    classes += size === "large" ? " fa-2x" : " fa-1x";
+    let classes = "fa";
+    classes += size === "large" ? " fa-2x mx-2" : " fa-1x mx-3";
     classes += isPlaying ? " fa-pause" : " fa-play";
     return classes;
   };
 
   getShuffleClasses = () => {
     const { size, shuffle } = this.props;
-    let classes = "fa fa-random mx-3";
-    classes += size === "large" ? " fa-2x" : " fa-1x";
+    let classes = "fa fa-random";
+    classes += size === "large" ? " fa-2x mx-2" : " fa-1x mx-3";
     classes += shuffle ? " green" : "";
     return classes;
   };
 
   getSkipClasses = (code) => {
     const { size } = this.props;
-    let classes = "fa mx-3 " + code;
-    classes += size === "large" ? " fa-2x" : " fa-1x";
+    let classes = "fa" + code;
+    classes += size === "large" ? " fa-2x mx-2" : " fa-1x mx-3";
     return classes;
   };
 
   getRepeatClasses = () => {
     const { size, repeatMode } = this.props;
-    let classes = "fa mx-3";
-    classes += size === "large" ? " fa-2x" : " fa-1x";
+    let classes = "fa";
+    classes += size === "large" ? " fa-2x mx-2" : " fa-1x mx-3";
     if (repeatMode === 0) classes += " fa-refresh";
     if (repeatMode === 1) classes += " fa-refresh green";
     if (repeatMode === 2) classes += " fa-repeat green";
