@@ -9,7 +9,7 @@ class MiniPlayerControls extends Component {
   };
 
   interval = undefined;
-  timeBar = new ProgressBar(250);
+  timeBar = new ProgressBar(200);
 
   componentDidMount = () => {
     const { elapsed } = this.props;
@@ -82,14 +82,14 @@ class MiniPlayerControls extends Component {
   getShuffleClasses = () => {
     const { size, shuffle } = this.props;
     let classes = "fa fa-random";
-    classes += size === "large" ? " fa-2x mx-2" : " fa-1x mx-3";
+    classes += size === "large" ? " fa-2x mr-2" : " fa-1x mr-3";
     classes += shuffle ? " green" : "";
     return classes;
   };
 
   getSkipClasses = (code) => {
     const { size } = this.props;
-    let classes = "fa" + code;
+    let classes = "fa " + code;
     classes += size === "large" ? " fa-2x mx-2" : " fa-1x mx-3";
     return classes;
   };
@@ -97,7 +97,7 @@ class MiniPlayerControls extends Component {
   getRepeatClasses = () => {
     const { size, repeatMode } = this.props;
     let classes = "fa";
-    classes += size === "large" ? " fa-2x mx-2" : " fa-1x mx-3";
+    classes += size === "large" ? " fa-2x ml-2" : " fa-1x ml-3";
     if (repeatMode === 0) classes += " fa-refresh";
     if (repeatMode === 1) classes += " fa-refresh green";
     if (repeatMode === 2) classes += " fa-repeat green";
