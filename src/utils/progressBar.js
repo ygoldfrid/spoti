@@ -15,7 +15,7 @@ export default function ProgressBar(width) {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.context.fillStyle = "#535353";
     this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.context.fillStyle = "#b3b3b3";
+    this.context.fillStyle = "#FFFFFF";
     this.context.fillRect(0, 0, drawPosition, this.canvas.height);
   };
 

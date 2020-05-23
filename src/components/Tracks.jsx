@@ -131,22 +131,23 @@ class Tracks extends Component {
               onClick={this.handleClick}
               onMouseOver={this.handleMouseOver}
               onMouseOut={this.handleMouseOut}
-              className="row track p-2"
+              className="d-flex flex-row track p-2"
             >
               {type === "artist" && (
-                <img
-                  className="m-2"
-                  src={track.album.images[2].url}
-                  alt={track.name}
-                />
+                <img src={track.album.images[2].url} alt={track.name} />
               )}
               <i
                 className={this.getIconClasses(track.id)}
                 aria-hidden="true"
               ></i>
-              <p className={this.getTrackNameClasses(track.id)}>
-                {track.name} ({msToDuration(track.duration_ms)})
+              <p id="track-name" className={this.getTrackNameClasses(track.id)}>
+                {track.name}
               </p>
+              <div className="col-auto ml-auto">
+                <p className={this.getTrackNameClasses(track.id)}>
+                  {msToDuration(track.duration_ms)}
+                </p>
+              </div>
             </div>
           ))}
         </div>

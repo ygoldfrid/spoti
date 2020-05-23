@@ -9,7 +9,7 @@ class MiniPlayerControls extends Component {
   };
 
   interval = undefined;
-  timeBar = new ProgressBar(200);
+  timeBar = new ProgressBar(300);
 
   componentDidMount = () => {
     const { elapsed } = this.props;
@@ -73,34 +73,35 @@ class MiniPlayerControls extends Component {
 
   getPlayClasses = () => {
     const { size, isPlaying } = this.props;
-    let classes = size === "large" ? "fa-2x mx-3" : "fa-1x mx-3";
-    classes += isPlaying ? " fa fa-pause" : " fa fa-play";
+    let classes = "fa mx-3";
+    classes += size === "large" ? " fa-2x" : " fa-1x";
+    classes += isPlaying ? " fa-pause" : " fa-play";
     return classes;
   };
 
-  getPreviousClasses = () => {
-    return this.props.size === "large"
-      ? "fa fa-step-backward fa-2x mx-3"
-      : "fa fa-step-backward fa-1x mx-3";
-  };
-
-  getNextClasses = () => {
-    return this.props.size === "large"
-      ? "fa fa-step-forward fa-2x mx-3"
-      : "fa fa-step-forward fa-1x mx-3";
-  };
-
   getShuffleClasses = () => {
-    return this.props.shuffle
-      ? "fa fa-random fa-1x mx-3 green"
-      : "fa fa-random fa-1x mx-3";
+    const { size, shuffle } = this.props;
+    let classes = "fa fa-random mx-3";
+    classes += size === "large" ? " fa-2x" : " fa-1x";
+    classes += shuffle ? " green" : "";
+    return classes;
+  };
+
+  getSkipClasses = (code) => {
+    const { size } = this.props;
+    let classes = "fa mx-3 " + code;
+    classes += size === "large" ? " fa-2x" : " fa-1x";
+    return classes;
   };
 
   getRepeatClasses = () => {
-    const { repeatMode } = this.props;
-    if (repeatMode === 0) return "fa fa-refresh fa-1x mx-3";
-    if (repeatMode === 1) return "fa fa-refresh fa-1x mx-3 green";
-    if (repeatMode === 2) return "fa fa-repeat fa-1x mx-3 green";
+    const { size, repeatMode } = this.props;
+    let classes = "fa mx-3";
+    classes += size === "large" ? " fa-2x" : " fa-1x";
+    if (repeatMode === 0) classes += " fa-refresh";
+    if (repeatMode === 1) classes += " fa-refresh green";
+    if (repeatMode === 2) classes += " fa-repeat green";
+    return classes;
   };
 
   render() {
@@ -116,7 +117,7 @@ class MiniPlayerControls extends Component {
           <i
             id="previous"
             onClick={this.handleClickIcons}
-            className={this.getPreviousClasses()}
+            className={this.getSkipClasses("fa-step-backward")}
             aria-hidden="true"
           />
           <i
@@ -128,7 +129,7 @@ class MiniPlayerControls extends Component {
           <i
             id="next"
             onClick={this.handleClickIcons}
-            className={this.getNextClasses()}
+            className={this.getSkipClasses("fa-step-forward")}
             aria-hidden="true"
           />
           <i

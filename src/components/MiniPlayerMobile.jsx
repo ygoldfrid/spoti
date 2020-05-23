@@ -47,10 +47,9 @@ function MiniPlayerMobile({
           />
         </div>
       </div>
-      <div id="mobile-text-container" className="col-8" onClick={handleClick}>
-        <p id="mobile-text">
-          {currentTrack.name} &bull;{" "}
-          <span id="artist-name">{currentTrack.artists[0].name}</span>
+      <div className="col-8 overflow-container" onClick={handleClick}>
+        <p className="text-center overflow">
+          {currentTrack.name} &bull; <span>{currentTrack.artists[0].name}</span>
         </p>
       </div>
       <div className="col-2">

@@ -77,18 +77,18 @@ class TrackPage extends Component {
       repeatMode,
     } = this.state;
     return (
-      <div className="track-page">
+      <div className="track-page p-4">
         <div className="row back">
           <i
             id="back"
             onClick={this.handleBackClick}
-            className="fa fa-chevron-down fa-2x m-3"
+            className="fa fa-chevron-down fa-2x"
             aria-hidden="true"
           />
         </div>
         {currentTrack.id && (
           <Fragment>
-            <div className="row justify-content-center mb-2">
+            <div className="row justify-content-center my-3">
               <img
                 height="250"
                 width="250"
@@ -96,12 +96,19 @@ class TrackPage extends Component {
                 alt="album"
               />
             </div>
-            <div className="track-info mb-3 ml-1">
-              <div className="row">
-                <h4>{currentTrack.name}</h4>
+            <div className="track-info mb-4">
+              <div
+                id="track-name-container"
+                className="row justify-content-center"
+              >
+                <h4 id="track-name" className="text-center">
+                  {currentTrack.name}
+                </h4>
               </div>
-              <div className="row">
-                <h5>{currentTrack.artists[0].name}</h5>
+              <div className="row justify-content-center">
+                <h5 id="artist-name" className="text-center">
+                  {currentTrack.artists[0].name}
+                </h5>
               </div>
             </div>
             <MiniPlayerControls

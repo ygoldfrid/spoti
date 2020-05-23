@@ -210,7 +210,10 @@ div.mini-player-text > div > h5 > a {
 }
 
 /* MOBILE */
-div#mobile-text-container {
+#track-name,
+#artist-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
   overflow: hidden;
 }
 
@@ -218,7 +221,11 @@ p#mobile-text > span {
   color: var(--under-grey);
 }
 
-p#mobile-text {
+.overflow-container {
+  overflow: hidden;
+}
+
+.overflow {
   font-family: lineto-circular-pro-bold;
   font-size: 15px;
   white-space: nowrap;
