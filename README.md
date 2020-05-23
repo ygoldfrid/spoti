@@ -12,6 +12,7 @@ For Spotify Basic Accounts:
 
 - Check Top Artists / Top Tracks / Play History / New Releases
 - Browse Artists, Albums and Songs
+- Follow / Unfollow Artists
 
 For Spotify Premium accounts:
 
