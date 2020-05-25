@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
+import logger from "./services/logService";
 import spotiPlayer from "./services/spotiPlayerService";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
@@ -10,6 +11,7 @@ import "./index.css";
 
 document.title = process.env.REACT_APP_NAME;
 
+logger.init();
 spotiPlayer.init();
 
 ReactDOM.render(
