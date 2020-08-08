@@ -6,7 +6,7 @@ const tokenKey = "access_token";
 
 const params = {
   client_id: "14c498f4bd4b4b2d8d7f7d13b67efae8",
-  redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+  redirect_uri: process.env.react_app_redirect_uri,
   scope: [
     "streaming",
     "user-top-read",
