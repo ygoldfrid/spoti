@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 import "./index.css";
 
-document.title = process.env.react_app_name;
+document.title = process.env.REACT_APP_NAME;
 
 logger.init();
 spotiPlayer.init();
