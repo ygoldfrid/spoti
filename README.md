@@ -4,7 +4,7 @@ Spoti App is a Soptify Web Client powered by the [Spotify Web API](https://devel
 
 ## Try it online
 
-You can play around with Spoti App [here](http://yaniv-spoti.herokuapp.com/)
+You can play around with Spoti App [here](https://spoti.yanivgoldfrid.com/)
 
 ## Available Features
 
