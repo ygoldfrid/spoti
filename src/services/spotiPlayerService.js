@@ -30,7 +30,8 @@ function init() {
 
     // Ready
     player.addListener("ready", ({ device_id }) => {
-      // console.log("Ready with Device ID", device_id);
+      console.log("Ready with Device ID", device_id);
+      localStorage.setItem("_spharmony_device_id", device_id);
     });
 
     // Not Ready
